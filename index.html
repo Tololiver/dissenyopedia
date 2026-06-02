@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dissenyopedia — Arxiu de Disseny Gràfic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--w:#fff;--ink:#0a0a0a;--ink2:#1c1c1c;--ink3:#333;--mid:#666;--faint:#aaa;--rule:#ddd;--paper:#f8f7f5;--red:#C41E3A;--red2:#f5e0e3;--g:"Bricolage Grotesque",system-ui,sans-serif;--s:"Lora",Georgia,serif;--m:"JetBrains Mono",monospace;--pad:clamp(16px,4vw,56px);--max:1360px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--w);color:var(--ink);font-family:var(--g);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}button{cursor:pointer;font-family:inherit}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--paper)}::-webkit-scrollbar-thumb{background:var(--rule)}
+.mast{position:sticky;top:0;z-index:100;background:var(--w);border-bottom:3px solid var(--ink)}
+.mast-i{max-width:var(--max);margin:0 auto;padding:0 var(--pad);display:flex;align-items:stretch;height:48px}
+.mast-logo{display:flex;align-items:center;border-right:1px solid var(--rule);padding-right:20px;flex-shrink:0}
+.mast-name{font-family:var(--g);font-size:15px;font-weight:800;letter-spacing:-.02em;text-transform:uppercase}
+.mast-tag{font-family:var(--m);font-size:9px;color:var(--red);text-transform:uppercase;letter-spacing:.15em;display:block;margin-top:1px}
+.mast-nav{display:flex;align-items:stretch;flex:1;overflow-x:auto;scrollbar-width:none}
+.mast-nav::-webkit-scrollbar{display:none}
+.mnav{font-family:var(--m);font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);padding:0 14px;display:flex;align-items:center;border-right:1px solid var(--rule);white-space:nowrap;cursor:pointer;transition:all .12s}
+.mnav:hover{color:var(--ink);background:var(--paper)}
+.mast-srch{display:flex;align-items:center;gap:8px;border-left:1px solid var(--rule);padding:0 16px}
+.mast-srch input{background:none;border:none;outline:none;font-family:var(--m);font-size:11px;color:var(--ink);width:150px}
+.mast-srch input::placeholder{color:var(--faint)}
+.hero{border-bottom:1px solid var(--rule);padding:56px 0 48px}
+.hero-g{max-width:var(--max);margin:0 auto;padding:0 var(--pad);display:grid;grid-template-columns:1fr 320px;gap:0;align-items:start}
+.hero-kicker{font-family:var(--m);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.hero-kicker::before{content:"";display:block;width:24px;height:2px;background:var(--red)}
+.hero-title{font-family:var(--g);font-size:clamp(52px,9vw,120px);font-weight:800;letter-spacing:-.04em;line-height:.92;text-transform:uppercase;margin-bottom:20px}
+.hero-title em{color:var(--red);font-style:normal}
+.hero-desc{font-family:var(--s);font-size:16px;color:var(--mid);line-height:1.6;max-width:480px}
+.hero-right{border-left:1px solid var(--rule);padding-left:32px;padding-top:8px}
+.hs{padding:16px 0;border-bottom:1px solid var(--rule);display:flex;align-items:baseline;gap:12px}
+.hs:last-child{border-bottom:none}
+.hs-n{font-family:var(--g);font-size:40px;font-weight:800;line-height:1;min-width:64px}
+.hs-l{font-family:var(--m);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid)}
+.part-h{border-top:5px solid var(--ink);border-bottom:1px solid var(--rule);padding:36px 0 28px}
+.part-hi{max-width:var(--max);margin:0 auto;padding:0 var(--pad);display:flex;align-items:baseline;gap:20px;flex-wrap:wrap}
+.part-num{font-family:var(--m);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);border:2px solid var(--red);padding:3px 10px;flex-shrink:0}
+.part-title{font-family:var(--g);font-size:clamp(20px,3vw,30px);font-weight:700;letter-spacing:-.02em}
+.part-desc{font-family:var(--s);font-size:13px;font-style:italic;color:var(--mid);margin-left:auto;max-width:360px;text-align:right;line-height:1.5}
+.cat-banner{background:var(--ink);position:relative;overflow:hidden}
+.cat-bi{max-width:var(--max);margin:0 auto;padding:0 var(--pad);display:flex;align-items:center;justify-content:space-between;min-height:60px;gap:20px;position:relative;z-index:1}
+.cat-btitle{font-family:var(--g);font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--w)}
+.cat-bsub{font-family:var(--s);font-size:12px;font-style:italic;color:#aaa}
+.cat-bnum{font-family:var(--g);font-size:112px;font-weight:800;color:rgba(255,255,255,.06);line-height:1;position:absolute;right:var(--pad);top:50%;transform:translateY(-50%);pointer-events:none;letter-spacing:-.04em}
+.d-grid{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);border-left:1px solid var(--rule)}
+.d-grid .dc{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.dc{background:var(--w);cursor:pointer;transition:background .15s;position:relative}
+.dc::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
+.dc:hover::before,.dc.open::before{transform:scaleX(1)}
+.dc.open::before{background:var(--red)}
+.dc:hover{background:var(--paper)}
+.dc.open{background:var(--paper);grid-column:1/-1}
+.dc.custom{border-top:3px solid var(--red)}.dc.custom::before{display:none}
+.dc-head{padding:24px 28px 20px;display:grid;grid-template-columns:48px 1fr auto;gap:0 14px;align-items:start}
+.dc-idx{font-family:var(--g);font-size:26px;font-weight:800;color:var(--rule);line-height:1;padding-top:2px;transition:color .15s;font-variant-numeric:tabular-nums}
+.dc:hover .dc-idx,.dc.open .dc-idx{color:var(--red)}
+.dc-name{font-family:var(--g);font-size:17px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin-bottom:3px}
+.dc-tagline{font-family:var(--s);font-size:13px;font-style:italic;color:var(--mid);margin-bottom:9px;line-height:1.35}
+.dc-chips{display:flex;flex-wrap:wrap;gap:4px}
+.chip{font-family:var(--m);font-size:9px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid var(--rule);color:var(--mid)}
+.chip-cat{border-color:var(--red);color:var(--red);background:var(--red2)}
+.dc-caret{width:26px;height:26px;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--faint);transition:all .2s;flex-shrink:0;margin-top:2px;background:var(--w)}
+.dc.open .dc-caret{background:var(--red);border-color:var(--red);color:var(--w);transform:rotate(45deg)}
+.dc-del{width:20px;height:20px;background:none;border:1px solid var(--rule);color:var(--faint);font-size:11px;display:flex;align-items:center;justify-content:center;position:absolute;top:6px;right:6px;transition:all .15s;z-index:2;cursor:pointer}
+.dc-del:hover{background:var(--red);border-color:var(--red);color:var(--w)}
+.dc-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1)}
+.dc-body.open{max-height:2800px}
+.dc-spread{border-top:1px solid var(--rule);padding:0 28px 36px}
+.sp-top{display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid var(--rule)}
+.sp-port{border-right:1px solid var(--rule);padding:20px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.sp-port img{width:120px;height:144px;object-fit:cover;object-position:top;filter:grayscale(15%);border:1px solid var(--rule)}
+.sp-port-ph{width:120px;height:144px;background:var(--paper);border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;font-family:var(--g);font-size:36px;font-weight:800;color:var(--rule)}
+.sp-port-cap{font-family:var(--m);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);text-align:center}
+.sp-bio{padding:20px 24px}
+.sp-bio-meta{font-family:var(--m);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);padding-bottom:10px;border-bottom:1px solid var(--rule);margin-bottom:14px}
+.sp-bio-meta span{color:var(--red);font-weight:700}
+.sp-bio-text{font-family:var(--s);font-size:14px;line-height:1.7;color:var(--ink3)}
+.sp-cols{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid var(--rule)}
+.sp-col{padding:16px 20px;border-right:1px solid var(--rule)}
+.sp-col:last-child{border-right:none}
+.sp-lbl{font-family:var(--m);font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+.sp-list{list-style:none}
+.sp-list li{font-size:12px;color:var(--ink3);padding:4px 0;border-bottom:1px dotted var(--rule);line-height:1.4;display:flex;gap:5px}
+.sp-list li::before{content:"–";color:var(--red);flex-shrink:0;font-size:10px}
+.sp-principles{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--rule)}
+.sp-pr{padding:16px 20px;border-right:1px solid var(--rule);background:var(--paper);position:relative;overflow:hidden}
+.sp-pr:last-child{border-right:none}
+.sp-pr-ghost{font-family:var(--g);font-size:88px;font-weight:800;color:rgba(0,0,0,.04);position:absolute;bottom:-12px;right:10px;line-height:1;pointer-events:none}
+.sp-pr-name{font-family:var(--g);font-size:11px;font-weight:700;margin-bottom:5px;line-height:1.3}
+.sp-pr-desc{font-family:var(--s);font-size:12px;font-style:italic;color:var(--mid);line-height:1.5}
+.sp-works{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--rule)}
+.sp-work{padding:16px 20px;border-right:1px solid var(--rule)}
+.sp-work:last-child{border-right:none}
+.sp-work-n{font-family:var(--g);font-size:22px;font-weight:800;color:var(--red);line-height:1;margin-bottom:6px}
+.sp-work-t{font-family:var(--g);font-size:11px;font-weight:600;margin-bottom:3px}
+.sp-work-d{font-family:var(--s);font-size:11.5px;font-style:italic;color:var(--mid);line-height:1.4}
+.sp-lesson{background:var(--ink);padding:24px 28px;display:grid;grid-template-columns:64px 1fr;border-bottom:1px solid var(--rule)}
+.sp-lesson-lbl{font-family:var(--m);font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);writing-mode:vertical-lr;transform:rotate(180deg)}
+.sp-lesson-txt{font-family:var(--s);font-size:15px;font-style:italic;color:var(--w);line-height:1.6}
+.sp-media{display:grid;grid-template-columns:1fr 240px;border-bottom:1px solid var(--rule)}
+.sp-video{aspect-ratio:16/9;background:var(--ink);overflow:hidden}
+.sp-video-ph{width:100%;height:100%;background:var(--ink);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;cursor:pointer;transition:background .15s}
+.sp-video-ph:hover{background:var(--ink2)}
+.sp-video-btn{width:48px;height:48px;border:2px solid var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--red);transition:all .15s}
+.sp-video-ph:hover .sp-video-btn{background:var(--red);color:var(--w)}
+.sp-video-lbl{font-family:var(--m);font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.sp-video iframe{width:100%;height:100%;border:none}
+.sp-links{border-left:1px solid var(--rule)}
+.sp-links-lbl{font-family:var(--m);font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mid);padding:10px 14px;border-bottom:1px solid var(--rule)}
+.sp-link{display:flex;align-items:center;gap:9px;padding:11px 14px;border-bottom:1px solid var(--rule);color:var(--ink);transition:background .12s}
+.sp-link:last-child{border-bottom:none}
+.sp-link:hover{background:var(--paper)}
+.sp-link-icon{font-size:13px;flex-shrink:0}
+.sp-link-name{font-family:var(--g);font-size:10.5px;font-weight:600;display:block;margin-bottom:1px}
+.sp-link-url{font-family:var(--m);font-size:8.5px;color:var(--faint)}
+.sp-sources{padding:12px 20px;display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.sp-src-lbl{font-family:var(--m);font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-right:4px}
+.sp-src-pill{font-family:var(--s);font-size:11px;font-style:italic;color:var(--mid);padding:2px 7px;border:1px solid var(--rule);background:var(--paper)}
+.proc-wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.proc-card{border-bottom:1px solid var(--rule)}
+.proc-head{display:grid;grid-template-columns:72px 1fr auto;align-items:center;padding:24px 0;cursor:pointer;transition:background .12s}
+.proc-head:hover{background:var(--paper)}
+.proc-n{font-family:var(--g);font-size:36px;font-weight:800;color:var(--rule);line-height:1;text-align:right;padding-right:20px;transition:color .15s}
+.proc-card.open .proc-n{color:var(--red)}
+.proc-title{font-family:var(--g);font-size:16px;font-weight:700;letter-spacing:-.01em;margin-bottom:3px}
+.proc-refs{font-family:var(--m);font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.proc-intro{font-family:var(--s);font-size:12.5px;font-style:italic;color:var(--mid);margin-top:3px;max-width:520px}
+.proc-arr{font-size:18px;color:var(--faint);transition:all .25s;padding:0 8px}
+.proc-card.open .proc-arr{transform:rotate(90deg);color:var(--red)}
+.proc-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1)}
+.proc-body.open{max-height:4000px}
+.proc-inner{padding:0 0 36px 72px;border-top:1px solid var(--rule)}
+.phases{padding-top:20px}
+.phase{display:grid;grid-template-columns:40px 1fr;margin-bottom:3px}
+.ph-nc{display:flex;flex-direction:column;align-items:center;padding-top:2px}
+.ph-c2{width:30px;height:30px;border:2px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--g);font-size:12px;font-weight:700;color:var(--ink);flex-shrink:0}
+.phase.act .ph-c2{background:var(--red);border-color:var(--red);color:var(--w)}
+.ph-line{width:1px;flex:1;background:var(--rule);margin:3px 0;min-height:14px}
+.ph-c{padding:0 0 20px 14px}
+.ph-name{font-family:var(--g);font-size:12.5px;font-weight:700;margin-bottom:2px}
+.ph-desc{font-family:var(--s);font-size:12px;font-style:italic;color:var(--mid);margin-bottom:8px}
+.ph-acts{list-style:none}
+.ph-acts li{font-size:12.5px;color:var(--ink3);padding:4px 0 4px 12px;border-bottom:1px dotted var(--rule);position:relative;line-height:1.4}
+.ph-acts li::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:5px;height:1px;background:var(--red)}
+.proc-tools{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);margin-top:16px}
+.proc-tool{background:var(--paper);padding:12px 14px}
+.proc-tool-n{font-family:var(--g);font-size:11px;font-weight:600;margin-bottom:2px}
+.proc-tool-u{font-family:var(--s);font-size:11px;font-style:italic;color:var(--mid);line-height:1.3}
+.proc-src{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-top:14px}
+.bib-wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.bib-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule)}
+.bib-sec{background:var(--w);padding:24px}
+.bib-cat{font-family:var(--m);font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--ink)}
+.bib-list{list-style:none}
+.bib-list li{font-family:var(--s);font-size:13px;font-style:italic;color:var(--ink3);padding:6px 0;border-bottom:1px dotted var(--rule);line-height:1.35}
+.bib-list li a{color:var(--red);text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px}
+.bib-list li a:hover{color:var(--ink)}
+.footer{border-top:5px solid var(--ink);margin-top:72px;padding:44px 0}
+.footer-i{max-width:var(--max);margin:0 auto;padding:0 var(--pad);display:grid;grid-template-columns:1fr 1fr;gap:44px}
+.footer-q{font-family:var(--s);font-size:clamp(15px,2vw,20px);font-style:italic;line-height:1.5}
+.footer-q cite{display:block;font-family:var(--m);font-size:9px;font-style:normal;color:var(--red);letter-spacing:.1em;margin-top:10px;text-transform:uppercase}
+.footer-m{border-left:1px solid var(--rule);padding-left:36px;display:flex;flex-direction:column;justify-content:center;gap:5px}
+.footer-m p{font-family:var(--m);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);line-height:1.6}
+.footer-m strong{color:var(--mid)}
+.fab{position:fixed;bottom:28px;right:28px;z-index:200;width:50px;height:50px;background:var(--red);color:var(--w);border:none;font-size:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.18);transition:all .15s}
+.fab:hover{background:var(--ink);transform:rotate(90deg)}
+.btt{position:fixed;bottom:28px;left:28px;width:42px;height:42px;background:var(--ink);color:var(--w);border:none;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .2s;z-index:50}
+.btt.show{opacity:1;pointer-events:all}.btt:hover{background:var(--red)}
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:300;display:none;align-items:flex-start;justify-content:center;padding:36px 16px;overflow-y:auto}
+.mo.open{display:flex}
+.modal{background:var(--w);width:100%;max-width:700px;border-top:5px solid var(--red);max-height:calc(100vh - 72px);overflow-y:auto;flex-shrink:0}
+.m-head{padding:20px 24px;border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--w);z-index:10}
+.m-title{font-family:var(--g);font-size:14px;font-weight:800;text-transform:uppercase}
+.m-close{background:none;border:1px solid var(--rule);width:30px;height:30px;font-size:16px;color:var(--mid);display:flex;align-items:center;justify-content:center;transition:all .15s;cursor:pointer}
+.m-close:hover{background:var(--red);border-color:var(--red);color:var(--w)}
+.m-body{padding:24px;display:flex;flex-direction:column;gap:18px}
+.m-sec{border-top:1px solid var(--rule);padding-top:14px}
+.m-sec:first-child{border-top:none;padding-top:0}
+.m-sec-t{font-family:var(--m);font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:12px}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fg.full{grid-template-columns:1fr}
+.ff{display:flex;flex-direction:column;gap:3px}
+.fl{font-family:var(--m);font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.fi,.ft{border:1px solid var(--rule);padding:7px 9px;font-family:var(--s);font-size:13px;color:var(--ink);background:var(--w);outline:none;transition:border-color .15s;width:100%;resize:vertical}
+.fi:focus,.ft:focus{border-color:var(--red)}
+.ft{min-height:68px}
+.fhint{font-family:var(--m);font-size:8.5px;color:var(--faint)}
+.m-foot{padding:16px 24px;border-top:1px solid var(--rule);display:flex;gap:8px;justify-content:flex-end;background:var(--paper)}
+.btn{padding:9px 20px;border:none;font-family:var(--g);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s}
+.btn-p{background:var(--red);color:var(--w)}.btn-p:hover{background:var(--ink)}
+.btn-g{background:none;border:1px solid var(--rule);color:var(--mid)}.btn-g:hover{border-color:var(--ink);color:var(--ink)}
+.empty{text-align:center;padding:60px 20px;font-family:var(--s);font-size:15px;font-style:italic;color:var(--faint);grid-column:1/-1}
+@media(max-width:860px){
+  .hero-g{grid-template-columns:1fr}
+  .hero-right{border-left:none;border-top:1px solid var(--rule);padding-top:20px;padding-left:0}
+  .d-grid{grid-template-columns:1fr}
+  .sp-top,.sp-media{grid-template-columns:1fr}
+  .sp-cols,.sp-principles,.sp-works{grid-template-columns:1fr 1fr}
+  .proc-tools{grid-template-columns:1fr 1fr}
+  .bib-grid{grid-template-columns:1fr}
+  .footer-i{grid-template-columns:1fr}
+  .footer-m{border-left:none;padding-left:0;border-top:1px solid var(--rule);padding-top:20px}
+  .fg{grid-template-columns:1fr}
+  .part-desc{margin-left:0;text-align:left}
+}
+@media(max-width:560px){.sp-cols,.sp-principles,.sp-works{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="mast">
+  <div class="mast-i">
+    <div class="mast-logo">
+      <div style="padding-right:20px">
+        <div class="mast-name">Dissenyopedia</div>
+        <span class="mast-tag">Arxiu de Disseny Grafic</span>
+      </div>
+    </div>
+    <nav class="mast-nav" id="mastnav"></nav>
+    <div class="mast-srch">
+      <span style="color:var(--faint);font-size:13px">&#x2315;</span>
+      <input type="text" id="searchInput" placeholder="Cercar...">
+    </div>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-g">
+    <div>
+      <div class="hero-kicker">Arxiu de Referencia · Edicio 2024</div>
+      <h1 class="hero-title">Dissenyo<em>pedia</em></h1>
+      <p class="hero-desc">Els mestres que han definit el llenguatge visual del segle XX i XXI. Fitxes de treball, processos creatius i fonts de referencia.</p>
+    </div>
+    <div class="hero-right">
+      <div class="hs"><div class="hs-n" id="stat-n">20</div><div class="hs-l">Dissenyadors<br>referenciats</div></div>
+      <div class="hs"><div class="hs-n">5</div><div class="hs-l">Processos<br>creatius</div></div>
+      <div class="hs"><div class="hs-n">60+</div><div class="hs-l">Fonts i<br>bibliografia</div></div>
+    </div>
+  </div>
+</section>
+<div>
+  <div class="part-h"><div class="part-hi">
+    <span class="part-num">Part I</span>
+    <h2 class="part-title">Fitxes de Dissenyadors</h2>
+    <p class="part-desc">Fes clic per expandir. Inclou video, enllacos i bibliografia.</p>
+  </div></div>
+  <div id="dSection"></div>
+</div>
+<div style="border-top:5px solid var(--ink);margin-top:48px">
+  <div class="part-h"><div class="part-hi">
+    <span class="part-num">Part II</span>
+    <h2 class="part-title">Processos Creatius</h2>
+    <p class="part-desc">Metodologies de treball basades en els millors estudis del mon.</p>
+  </div></div>
+  <div class="proc-wrap" id="pSection"></div>
+</div>
+<div style="border-top:1px solid var(--rule);margin-top:48px">
+  <div class="part-h"><div class="part-hi">
+    <span class="part-num">Bib.</span>
+    <h2 class="part-title">Fonts i References</h2>
+    <p class="part-desc">Llibres, arxius, museus i plataformes.</p>
+  </div></div>
+  <div class="bib-wrap" id="bSection"></div>
+</div>
+<footer class="footer">
+  <div class="footer-i">
+    <blockquote class="footer-q">"El disseny no es solament com es veu i com es nota. El disseny es com funciona."<cite>Steve Jobs, sobre Paul Rand</cite></blockquote>
+    <div class="footer-m">
+      <p><strong>Dissenyopedia</strong></p>
+      <p>Arxiu de Disseny Grafic de Referencia</p>
+      <p>Edicio 2024 · CC BY-NC 4.0</p>
+    </div>
+  </div>
+</footer>
+<button class="fab" id="fab" title="Afegir dissenyador">+</button>
+<button class="btt" id="btt">&#8593;</button>
+<div class="mo" id="mo">
+  <div class="modal">
+    <div class="m-head">
+      <div class="m-title">Afegir Dissenyador</div>
+      <button class="m-close" id="mClose">&#215;</button>
+    </div>
+    <div class="m-body">
+      <div class="m-sec">
+        <div class="m-sec-t">Informacio basica</div>
+        <div class="fg">
+          <div class="ff"><label class="fl">Nom *</label><input class="fi" id="f-name" placeholder="Ex: Dieter Rams"></div>
+          <div class="ff"><label class="fl">Eslogan *</label><input class="fi" id="f-tagline" placeholder="El mestre del disseny industrial"></div>
+          <div class="ff"><label class="fl">Periode *</label><input class="fi" id="f-period" placeholder="1932-present"></div>
+          <div class="ff"><label class="fl">Origen *</label><input class="fi" id="f-origin" placeholder="Wiesbaden, Alemanya"></div>
+          <div class="ff"><label class="fl">Categoria *</label><input class="fi" id="f-cat" placeholder="Disseny Industrial / UI"></div>
+          <div class="ff"><label class="fl">URL retrat (opcional)</label><input class="fi" id="f-portrait" placeholder="https://..."></div>
+        </div>
+      </div>
+      <div class="m-sec">
+        <div class="m-sec-t">Biografia *</div>
+        <div class="fg full"><div class="ff"><textarea class="ft" id="f-bio" rows="3" placeholder="Descripcio breu del dissenyador..."></textarea></div></div>
+      </div>
+      <div class="m-sec">
+        <div class="m-sec-t">Estil i Tecniques</div>
+        <div class="fg">
+          <div class="ff"><label class="fl">Estil visual</label><textarea class="ft" id="f-style" rows="4" placeholder="Una caracteristica per linia"></textarea><span class="fhint">Una per linia</span></div>
+          <div class="ff"><label class="fl">Tecniques clau</label><textarea class="ft" id="f-tech" rows="4" placeholder="Una tecnica per linia"></textarea><span class="fhint">Una per linia</span></div>
+        </div>
+      </div>
+      <div class="m-sec">
+        <div class="m-sec-t">Principis (fins a 3)</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="fg"><div class="ff"><label class="fl">Principi 1 - Nom</label><input class="fi" id="f-p1n"></div><div class="ff"><label class="fl">Descripcio</label><input class="fi" id="f-p1d"></div></div>
+          <div class="fg"><div class="ff"><label class="fl">Principi 2 - Nom</label><input class="fi" id="f-p2n"></div><div class="ff"><label class="fl">Descripcio</label><input class="fi" id="f-p2d"></div></div>
+          <div class="fg"><div class="ff"><label class="fl">Principi 3 - Nom</label><input class="fi" id="f-p3n"></div><div class="ff"><label class="fl">Descripcio</label><input class="fi" id="f-p3d"></div></div>
+        </div>
+      </div>
+      <div class="m-sec">
+        <div class="m-sec-t">Obres Mestres (fins a 3)</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="fg"><div class="ff"><label class="fl">Obra 1 - Titol</label><input class="fi" id="f-w1t"></div><div class="ff"><label class="fl">Descripcio</label><input class="fi" id="f-w1d"></div></div>
+          <div class="fg"><div class="ff"><label class="fl">Obra 2 - Titol</label><input class="fi" id="f-w2t"></div><div class="ff"><label class="fl">Descripcio</label><input class="fi" id="f-w2d"></div></div>
+          <div class="fg"><div class="ff"><label class="fl">Obra 3 - Titol</label><input class="fi" id="f-w3t"></div><div class="ff"><label class="fl">Descripcio</label><input class="fi" id="f-w3d"></div></div>
+        </div>
+      </div>
+      <div class="m-sec">
+        <div class="m-sec-t">Llico i Fonts</div>
+        <div class="fg full">
+          <div class="ff"><label class="fl">Llico aplicable *</label><textarea class="ft" id="f-lesson" rows="3" placeholder="La llico principal d'aquest dissenyador..."></textarea></div>
+          <div class="ff" style="margin-top:8px"><label class="fl">Fonts (una per linia)</label><textarea class="ft" id="f-src" rows="2" placeholder="Nom del Llibre (any)&#10;www.web.com"></textarea></div>
+        </div>
+      </div>
+      <div class="m-sec">
+        <div class="m-sec-t">Video i Enllacos (opcionals)</div>
+        <div class="fg full"><div class="ff"><label class="fl">ID de video YouTube</label><input class="fi" id="f-vid" placeholder="Ex: YqQx75OPRa0  (nomes l'ID, no la URL completa)"></div></div>
+        <div style="display:flex;flex-direction:column;gap:7px;margin-top:10px">
+          <div class="fg"><div class="ff"><label class="fl">Enllac 1 - Nom</label><input class="fi" id="f-l1n" placeholder="Web oficial"></div><div class="ff"><label class="fl">URL</label><input class="fi" id="f-l1u" placeholder="https://..."></div></div>
+          <div class="fg"><div class="ff"><label class="fl">Enllac 2 - Nom</label><input class="fi" id="f-l2n"></div><div class="ff"><label class="fl">URL</label><input class="fi" id="f-l2u" placeholder="https://..."></div></div>
+          <div class="fg"><div class="ff"><label class="fl">Enllac 3 - Nom</label><input class="fi" id="f-l3n"></div><div class="ff"><label class="fl">URL</label><input class="fi" id="f-l3u" placeholder="https://..."></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="m-foot">
+      <button class="btn btn-g" id="mCancel">Cancel.lar</button>
+      <button class="btn btn-p" id="mSave">Desar dissenyador</button>
+    </div>
+  </div>
+</div>
+<script>
+
+const LS='dissenyopedia_v1';
+const PORTRAITS={
+  rand:'https://upload.wikimedia.org/wikipedia/commons/b/bb/Paul_rand_loc.jpg',
+  glaser:'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Milton_Glaser_at_Cooper_Hewitt%2C_Smithsonian_Design_Museum.jpg/330px-Milton_Glaser_at_Cooper_Hewitt%2C_Smithsonian_Design_Museum.jpg',
+  bass:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Saul_Bass_gesturing%2C_RIT_NandE_Vol11Num19_1979_May10_Complete.jpg/330px-Saul_Bass_gesturing%2C_RIT_NandE_Vol11Num19_1979_May10_Complete.jpg',
+  vignelli:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Massimo_Vignelli_2.jpg/330px-Massimo_Vignelli_2.jpg',
+  lubalin:'https://upload.wikimedia.org/wikipedia/en/e/e9/Lubalinlogo.jpg',
+  carson:'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/20190513-BT-Dus-David_Carson-NP.jpg/330px-20190513-BT-Dus-David_Carson-NP.jpg',
+  brody:'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Neville_Brody_TYPO_SF_2012.jpg/330px-Neville_Brody_TYPO_SF_2012.jpg',
+  scher:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Paula_Scher_interview_OnCreativity.jpg/330px-Paula_Scher_interview_OnCreativity.jpg',
+  bierut:'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Michael_Bierut.jpg/330px-Michael_Bierut.jpg',
+  barnbrook:'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/20161128-142503-Jonathan_Barnbrook-m-NP.jpg/330px-20161128-142503-Jonathan_Barnbrook-m-NP.jpg',
+  kidd:'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/6.28.12ChipKiddByLuigiNovi1.jpg/330px-6.28.12ChipKiddByLuigiNovi1.jpg',
+  sagmeister:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Stefan_Sagmeister_in_2025_01.jpg/330px-Stefan_Sagmeister_in_2025_01.jpg',
+  saville:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Peter_Saville_at_i_realize_2009%2C_Turin.jpg/330px-Peter_Saville_at_i_realize_2009%2C_Turin.jpg',
+  mariscal:'https://upload.wikimedia.org/wikipedia/commons/8/8d/Javier_mariscal.jpg',
+};
+const VIDEOS={rand:'YqQx75OPRa0',glaser:'D7OEVCroTi4',bass:'IXB3hFDBWUQ',vignelli:'LuS1SxBr1SE',lubalin:'ZUepzRz8qO0',carson:'MsxFMGXUqWw',brody:'aP-d_-eMObY',scher:'4aSf1HJvKSE',bierut:'MZnBMPVsC3Y',sagmeister:'pTUhkjqJqCQ',walsh:'PmWETRQiB58',saville:'5b3V_2_UHV0',mariscal:'V5uQ6VTZLkI',trochut:'6ulSBmzXlpI',kidd:'D4iFzWeHFxk'};
+const LINKS={rand:[{l:'paul-rand.com',u:'https://www.paul-rand.com',i:'🌐'},{l:'AIGA Medalist',u:'https://www.aiga.org/membership-community/aiga-awards/medalists/paul-rand',i:'🏆'},{l:'MoMA Collection',u:'https://www.moma.org/artists/4760',i:'🎨'}],glaser:[{l:'miltonglaser.com',u:'https://www.miltonglaser.com',i:'🌐'},{l:'I Love NY',u:'https://www.miltonglaser.com/pages/i-ny',i:'❤️'},{l:'AIGA',u:'https://www.aiga.org',i:'🏆'}],bass:[{l:'saulbass.net',u:'https://www.saulbass.net',i:'🌐'},{l:'Art of the Title',u:'https://www.artofthetitle.com/designer/saul-bass/',i:'🎬'},{l:'MoMA',u:'https://www.moma.org/artists/385',i:'🎨'}],vignelli:[{l:'Vignelli Center',u:'https://vignellicenter.rit.edu',i:'🌐'},{l:'Canon PDF',u:'https://www.vignelli.com/canon.pdf',i:'📄'},{l:'NYC Subway',u:'https://www.mta.info/map',i:'🗺️'}],lubalin:[{l:'Lubalin Center',u:'https://lubalincenter.cooper.edu',i:'🌐'},{l:'ITC Avant Garde',u:'https://fonts.adobe.com/fonts/itc-avant-garde-gothic',i:'🔤'},{l:'U&lc Archive',u:'https://www.typography.com',i:'📰'}],carson:[{l:'davidcarsondesign.com',u:'https://www.davidcarsondesign.com',i:'🌐'},{l:"It's Nice That",u:'https://www.itsnicethat.com',i:'📰'},{l:'End of Print',u:'https://www.amazon.com/dp/0811803813',i:'📚'}],brody:[{l:'Research Studios',u:'https://www.researchstudios.com',i:'🌐'},{l:'The Face Archive',u:'https://thefacemagazine.com',i:'📰'},{l:'Eye Magazine',u:'https://www.eyemagazine.com',i:'🔤'}],cooper:[{l:'MIT Media Lab',u:'https://www.media.mit.edu',i:'🌐'},{l:'MIT Press',u:'https://mitpress.mit.edu',i:'📚'},{l:'Visible Language',u:'https://visiblelanguagejournal.com',i:'📰'}],scher:[{l:'Pentagram',u:'https://www.pentagram.com/work/paula-scher',i:'🌐'},{l:'Public Theater',u:'https://publictheater.org',i:'🎭'},{l:'Make It Bigger',u:'https://www.amazon.com/dp/1568984820',i:'📚'}],bierut:[{l:'Pentagram',u:'https://www.pentagram.com/work/michael-bierut',i:'🌐'},{l:'Design Observer',u:'https://designobserver.com',i:'✍️'},{l:'How to',u:'https://www.amazon.com/dp/0062413414',i:'📚'}],barnbrook:[{l:'barnbrook.net',u:'https://barnbrook.net',i:'🌐'},{l:'Bowie covers',u:'https://www.davidbowie.com',i:'🎵'},{l:'Emigre',u:'https://www.emigre.com',i:'🔤'}],kidd:[{l:'chipkidd.com',u:'https://www.chipkidd.com',i:'🌐'},{l:'TED Talk',u:'https://www.ted.com/talks/chip_kidd_designing_books_is_no_laughing_matter_ok_it_is',i:'🎤'},{l:'Knopf',u:'https://knopfdoubleday.com',i:'📚'}],janoff:[{l:'robjanoff.com',u:'https://www.robjanoff.com',i:'🌐'},{l:'Apple Logo story',u:'https://creativebits.org/interview/interview_rob_janoff_designer_apple_logo',i:'🍎'},{l:'Brand Identity',u:'https://www.amazon.com/dp/1118980689',i:'📖'}],sagmeister:[{l:'sagmeisterwalsh.com',u:'https://www.sagmeisterwalsh.com',i:'🌐'},{l:'The Happy Film',u:'https://thehappyfilm.com',i:'🎬'},{l:'Made You Look',u:'https://www.amazon.com/dp/1576870790',i:'📚'}],walsh:[{l:'andwalsh.com',u:'https://andwalsh.com',i:'🌐'},{l:'Ladies Wine & Design',u:'https://ladieswinedesign.com',i:'🍷'},{l:'40 Days of Dating',u:'https://www.40daysofdating.com',i:'❤️'}],saville:[{l:'peter-saville.com',u:'https://www.peter-saville.com',i:'🌐'},{l:'Factory Records',u:'https://www.factoryrecords.net',i:'🎵'},{l:'Joy Division',u:'https://www.joydiv.org',i:'🎶'}],mariscal:[{l:'mariscal.com',u:'https://www.mariscal.com',i:'🌐'},{l:'Barcelona 92',u:'https://www.olympic.org/barcelona-1992',i:'🏅'},{l:'IVAM',u:'https://www.ivam.es',i:'🎨'}],trochut:[{l:'alextrochut.com',u:'https://www.alextrochut.com',i:'🌐'},{l:'CommArts',u:'https://www.commarts.com',i:'📰'},{l:'More is More',u:'https://www.amazon.com',i:'📚'}],novillo:[{l:'cruznovillo.com',u:'https://www.cruznovillo.com',i:'🌐'},{l:'DIMAD',u:'https://www.dimad.org',i:'🏆'},{l:'Correos España',u:'https://www.correos.es',i:'📬'}],gimeno:[{l:'pepegimeno.com',u:'https://www.pepegimeno.com',i:'🌐'},{l:'ADG-FAD Laus',u:'https://www.fad.cat/premis-laus',i:'🏆'},{l:'DIMAD',u:'https://www.dimad.org',i:'🎨'}]};
+const CATS=[{t:'Llegendes i Pioners',s:'Els mestres que van crear el llenguatge visual del segle XX',r:[0,7]},{t:'Mestres del Branding i la Identitat',s:"Els arquitectes de les identitats corporatives mes iconiques",r:[8,12]},{t:'Visionaris Contemporanis',s:"Els dissenyadors que estan definint el present",r:[13,15]},{t:"Destacats del Mon Hispa",s:"Referents del disseny a Espanya",r:[16,19]}];
+const DES=[
+{id:'rand',name:'Paul Rand',tagline:'El pare del branding corporatiu modern',period:'1914-1996',origin:'Nova York, EUA',cat:'Branding / Identitat',bio:"Arquitecte del disseny grafic america del segle XX, Rand va transformar la publicitat en art. El seu metode: identificar l'essencia conceptual abans de tracar una sola linia. Per a ell, el dissenyador era un solucionador de problemes, no un decorador.",style:['Geometria simple i directa','Paletes redoides d\'alt contrast','Sintesi conceptual extrema','Equilibri entre ludic i corporatiu','Tipografia integrada amb la imatge'],tech:['Abstraccio simbolica del concepte','Construccio per formes basiques','Color com a vehicle emocional','Exploracio de variacions fins a l\'essencia','Lettering personalitzat com a logotip'],pr:[{n:'La forma segueix la funcio',d:'Cada element ha de guanyar-se el lloc amb una rao comunicativa clara.'},{n:'Sintesi maxima',d:'El millor logotip no pot perdre res sense perdre significat.'},{n:'Joc intelligent',d:"La playfulness no es oposada a la serietat; es la forma mes intelligernt de connectar."}],works:[{t:'IBM (1956)',d:'Identitat ratllada que comunicava tecnologia i ordre sense cap paraula'},{t:'ABC Television (1962)',d:'Cercle negre. Tres lletres. Recognoscible a qualsevol escala'},{t:'UPS (1961)',d:'Escut amb llac: proteccio i confianca en un gest grafic'}],lesson:"Abans de dissenyar, troba l'essencia del problema. No decores la solucio; sigues la solucio. La simplicitat es la destil.lacio maxima del significat.",src:["Paul Rand: A Designer's Art (1985)",'www.paul-rand.com','MoMA Design Collection','AIGA archives']},
+{id:'glaser',name:'Milton Glaser',tagline:'El comunicador mes popular del segle XX',period:'1929-2020',origin:'Nova York, EUA',cat:'Cartelleria / Identitat',bio:"Cofundador de la revista New York i creador de l'I NY, Glaser entenia el disseny com a comunicacio popular: democratic, immediatament comprensible i visualment magnetic.",style:['Linies fluides i organiques','Colors plans i vibrants',"Referents a l'art nouveau i al comic",'Text integrat pictorialment','Humor visual i ironia'],tech:["Esbocos a ma com a punt de partida",'Metafora visual directa','Composicio centrada de maxim impacte',"Exploracio de la lletra com a forma",'Color simbolic, no decoratiu'],pr:[{n:'Claredat emocional',d:"Un disseny s'ha de sentir abans d'entendre's. L'emocio precedeix la rao."},{n:'Democracia visual',d:"El gran disseny no exigeix formacio per ser apreciat; parla a l'instant."},{n:"L'error com a oportunitat",d:'Els accidents revelen camins que la planificacio mai no trobaria.'}],works:[{t:"I love NY (1977)",d:'El logotip mes copiat de la historia'},{t:'Bob Dylan Poster (1966)',d:"Silueta psicodelica, icona d'una generacio"},{t:'Revista New York',d:'Va redefinir el disseny editorial america'}],lesson:"El disseny mes efectiu sempre te una idea central irresistible. Abans del software, troba la metafora perfecta. La resta es execucio.",src:['Milton Glaser: Graphic Design (1973)','Art Is Work (2000)','www.miltonglaser.com']},
+{id:'bass',name:'Saul Bass',tagline:'El mestre dels titols cinematografics',period:'1920-1996',origin:'Nova York, EUA',cat:'Motion / Cartelleria',bio:"Bass va revolucionar la relacio cinema-disseny. La seva collaboracio amb Hitchcock va canviar el vocabulari del disseny en moviment per sempre.",style:['Formes geometriques fragmentades','Moviment implicit en composicio estatica','Colors purs i contrastats','Tipografia integrada en la narrativa','Tensio dramatica com a recurs estetic'],tech:["Col.latge analogic de paper retallat",'Animacio fotograma a fotograma','Reduccio a simbol essencial','Ritme visual sincronitzat amb musica','Composicio asimetrica calculada'],pr:[{n:'El disseny com a narrativa',d:'Cada imatge ha de generar anticipacio emocional, no tan sols illustrar.'},{n:'La restriccio allibera',d:'Les formes simples creen mes tensio quan estan ben col.locades.'},{n:'El moviment com a significat',d:"El bon disseny fa que l'ull es mogui amb intencio propia."}],works:[{t:'Vertigo (1958)',d:'Espirals hipnotiques que defineixen la psicologia del film'},{t:'Psicosi (1960)',d:'Linies fragmentades que generen angoixa abans del primer pla'},{t:'AT&T Logo (1969)',d:"Una de les identitats corporatives mes longeues de la historia"}],lesson:"Dissenya l'estat emocional abans que l'objecte visual. Que ha de sentir qui el vegi en els primers tres segons?",src:['Saul Bass: A Life in Film and Design (2011)','www.saulbass.net','Art of the Title archive']},
+{id:'vignelli',name:'Massimo Vignelli',tagline:'El saci sacerdot del minimalisme funcional',period:'1931-2014',origin:'Mila, Italia',cat:'Sistemes / Senaletica',bio:'Per a Vignelli el disseny era un sistema, no una decoracio. El seu treball al metro de Nova York va demostrar que bellesa i eficiencia son inseparables.',style:['Blanc, negre i un sol accent','Tipografia Helvetica gairebe exclusiva','Reticules estrictes i inamovibles','Absencia total d\'ornamentacio','Jerarquia visual absoluta'],tech:['Reticula modular com a base sagrada','Paleta de 6 colors maxim','Familia tipografica unica per identitat','Escala proporcional auria','Disseny des de les restriccions'],pr:[{n:'Elimina sense pietat',d:'Un element que no comunica activament esta contaminant.'},{n:"La reticula es llibertat",d:"Nomes amb l'ordre establert apareix la veritable expressio."},{n:'El disseny dura',d:'Un bon sistema ha de funcionar igual el 1970 que el 2024.'}],works:[{t:'NYC Subway Map (1972)',d:'Claredat funcional sobre realisme geografic'},{t:'Knoll Graphics',d:'Elegancia tipografica que va definir el modernisme'},{t:'American Airlines (1967)',d:'La doble A en Helvetica: identitat d\'aviacio classica'}],lesson:"Abans d'afegir qualsevol element: que passaria si no hi fos? Si la resposta es 'res', no ho possis.",src:['Vignelli Canon (PDF gratuit)','vignellicenter.rit.edu','www.vignelli.com']},
+{id:'lubalin',name:'Herb Lubalin',tagline:'El revolucionari de la tipografia expressiva',period:'1918-1981',origin:'Nova York, EUA',cat:'Tipografia / Editorial',bio:"Lubalin va convertir la tipografia en imatge. Els seus logos on les lletres es fusionen van representar una revolucio que va anticipar el disseny tipografic conceptual contemporani per dues decades.",style:["Lletres que es toquen, superposen o fusionen",'Espaiat negatiu com a eina','Tipografia com a illustracio','Equilibri entre massa i buit','Expressivitat maxima sense perdre llegibilitat'],tech:['Kern negatiu portat al limit','Lligadures tipografiques a mida','Lettering com a logotip','Bloc de text com a forma visual','Integracio imatge-text sense separacio'],pr:[{n:'La lletra te cos',d:'La tipografia te pes, textura, moviment i emocio.'},{n:"L'espai negatiu parla",d:'El que hi ha entre les lletres comunica tant com elles mateixes.'},{n:'Transgressio amb proposit',d:'Les normes existeixen per saber quan trencar-les.'}],works:[{t:'ITC Avant Garde (1970)',d:'Tipografia geometrica amb lligadures iconiques'},{t:'"Mother & Child" (1965)',d:'La & com a uter: literalitat i abstraccio en sintesi perfecta'},{t:'U&lc Magazine',d:'Va redefinir el disseny editorial tipografic america'}],lesson:"Tracta cada lletra com una forma, no com un signe. El logotip memorable amaga una relacio espacial inesperada entre caracters.",src:["Herb Lubalin: Art Director (1985)",'lubalincenter.cooper.edu','ITC Archive']},
+{id:'carson',name:'David Carson',tagline:'El pare del disseny tipografic grunge',period:'1955-present',origin:'California, EUA',cat:'Tipografia Experimental',bio:"Ex-surfista sense formacio academica formal. Carson va subvertir totes les normes tipografiques a Ray Gun i va demostrar que la illegibilitat pot ser la forma mes poderosa de comunicar energia i actitud.",style:['Tipografia fragmentada, girada i superposada','Caos ordenat per intuicio','Textures analogiques i accidents visuals','Composicio anti-reticula','Emocio visceral sobre claredat racional'],tech:['Fotocomposicio analogica i errors deliberats','Capes de text a distintes opacitats','Tipus danyats o degradats','Composicio per tensio emocional','Glitch i escaner com a eines'],pr:[{n:"Illegibilitat no es mala comunicacio",d:'Una pagina que transmet energia compleix la seva funcio encara que no es llegeixi.'},{n:"L'accident es informacio",d:'Els errors tecnics revelen veritats que el control no assoleix.'},{n:"L'actitud es dissenya",d:"L'estil tipografic pot ser tan poderos com una fotografia."}],works:[{t:'Ray Gun Magazine (1992)',d:"Laboratori que va definir l'estetica del rock alternatiu dels 90"},{t:'Beach Culture Magazine',d:'Mes de 150 premis internacionals de disseny'},{t:'End of Print',d:'La referencia del disseny grafic transgressor'}],lesson:"Un cop dominis totes les normes, pregunta't que comunica trencar-les. La transgressio amb proposit es la firma dels grans.",src:['The End of Print (1995)','www.davidcarsondesign.com','Eye Magazine Issue 18']},
+{id:'brody',name:'Neville Brody',tagline:'El dissenyador que va donar forma visual al punk i el pop',period:'1957-present',origin:'Londres, R.U.',cat:'Editorial / Tipografia',bio:"Brody va transformar el disseny editorial en acte cultural. Les seves portades per a The Face van convertir les revistes en objectes de culte.",style:['Tipografies propies constructivistes','Tensio geometrica en la composicio','Influencies industrials i sovietiques','Alt contrast tipografic','Pagina com a escenari cultural'],tech:['Tipografies propies per a cada projecte','Reticula trencada amb norma interna','Iconografia geometrica com a sistema','Lettering com a marca editorial','Paletes redoides amb accent fort'],pr:[{n:'El medi es el missatge',d:'La revista no conte el missatge cultural, ho es.'},{n:'Tipografia com a veu',d:"L'eleccio tipografica comunica actitud abans de llegir."},{n:'Dissenyar contra el temps',d:'El millor treball captura un moment cultural i es converteix en el seu simbol.'}],works:[{t:'The Face Magazine (1981)',d:'El disseny editorial mes influent dels anys 80'},{t:'Arena Magazine',d:"Estetica masculina que va definir el luxe editorial angles"},{t:'Fuse Magazine',d:'Investigacio tipografica experimental de referencia'}],lesson:"El disseny editorial no es decoracio; es la capa cultural que dona significat. Dissenya des de l'actitud de la publicacio.",src:['The Graphic Language of Neville Brody (1988)','www.researchstudios.com','Eye Magazine Retrospective']},
+{id:'cooper',name:'Muriel Cooper',tagline:'La pionera del disseny digital com a llenguatge',period:'1925-1994',origin:'Massachusetts, EUA',cat:'Disseny Digital / Editorial',bio:"Primera directora d'art del MIT Press, cofundadora del Visible Language Workshop. Va ser la primera a plantejar que la pantalla digital te les seves propies dimensions expressives.",style:['Minimalisme informacional rigoris','Tipografia com a arquitectura de dades','Espai tridimensional en 2D','Jerarquia visual com a experiencia','Abstraccio funcional'],tech:['Reticula adaptativa','Tipografia multi-escala simultanea','Capes d\'informacio superposades','Interactivitat com a variable de disseny','Prova iterativa constant'],pr:[{n:'La pantalla no es un paper',d:'El disseny digital te temps, interaccio i profunditat propies.'},{n:'Informacio com a forma',d:'Les dades ben organitzades tenen la mateixa bellesa que la geometria.'},{n:'El disseny anticipa el futur',d:'Els millors dissenyadors creen el vocabulari del dema.'}],works:[{t:'The Bauhaus (MIT Press, 1969)',d:"Referencia mundial del llibre d'art i disseny"},{t:'Visible Language Workshop',d:'Va anticipar les interficies digitals decades abans del web'},{t:'Information Landscapes (1994)',d:'Primera tipografia 3D interactiva presentada publicament'}],lesson:"Quan dissenyes per a pantalla, pensa en capes de temps. L'ordre en que les coses es revelen es part del disseny.",src:['MIT Press 50 Years','Visible Language Workshop Archive','MIT Media Lab']},
+{id:'scher',name:'Paula Scher',tagline:"La mestra de l'impacte tipografic massiu",period:'1948-present',origin:'Washington D.C., EUA',cat:'Branding / Identitat',bio:"Socia de Pentagram, Scher va desenvolupar el concepte de tipografia com a arquitectura urbana: lletres que parlen a l'escala de la ciutat.",style:['Tipografia com a imatge principal absoluta','Color saturat i pla','Composicio que omple l\'espai fins al limit','Lletres com a arquitectura visual','Energia populista i urbana'],tech:["Cartografies tipografiques pintades a ma",'Identitats modulars amb variacions infinites','Families condensades amb us expressiu','Layering tipografic','Color com a firma d\'identitat'],pr:[{n:'La tipografia crida',d:'Quan la tipografia es poderosa, la lletra es la imatge completa.'},{n:'Un sistema mai es rigid',d:'Una identitat forta permet variacions infinites sense perdre reconeixibilitat.'},{n:'Dissenya per al carrer',d:"El millor disseny funciona a 50 km/h des d'un taxi."}],works:[{t:'The Public Theater (1994)',d:'Sistema tipografic que va revolucionar el disseny cultural america'},{t:'MoMA Identity System',d:'Modernitat i accessibilitat en equilibri institucional'},{t:'Tiffany & Co.',d:'Refinament tipografic que va comunicar luxe sense ornament'}],lesson:"Una identitat no es un logotip, es un sistema de comportament visual. El Public Theater funciona perque cada aplicacio mante l'esperit.",src:['Make It Bigger, Paula Scher (2002)','www.pentagram.com','Paula Scher: Works']},
+{id:'bierut',name:'Michael Bierut',tagline:'El narrador visual del disseny corporatiu',period:'1957-present',origin:'Cleveland, EUA',cat:'Branding / Estrategia',bio:"Soci de Pentagram, Bierut enten el disseny com a storytelling visual. Els seus projectes sempre tenen una historia darrere que els fa inevitables.",style:["Elegancia sense esforca aparent",'Concepte narratiu solid com a base','Tipografia sofisticada i mesurada','Humor intelligent quan aplica','Solucions que semblen obvies en retrospectiva'],tech:['Investigacio cultural profunda','Concepte unic i irresistible com a eix','Multiples families tipografiques','Sistemes d\'identitat flexibles','Presentacio narrativa del treball'],pr:[{n:"La idea abans que l'execucio",d:'Cap software resol un concepte feble.'},{n:'El disseny com a dialeg',d:"El millor treball sorgeix d'entendre profundament a qui parles."},{n:'Confia en el proces',d:'Amb el problema ben definit, la solucio correcta emergeix naturalment.'}],works:[{t:'Saks Fifth Avenue (2007)',d:"Sistema d'identitat amb variacions infinites de luxe"},{t:'New York Times',d:'Modernitzacio que va mantenir autoritat i va adquirir agilitat digital'},{t:'Hillary for America (2016)',d:'El logotip politic mes analitzat de la historia'}],lesson:"Escriu la historia del projecte abans d'obrir cap programa. Si la pots explicar en una frase, el client l'entendraa i el disseny sera indestructible.",src:['How to, Michael Bierut (2015)','Seventy-nine Short Essays on Design (2007)','designobserver.com']},
+{id:'barnbrook',name:'Jonathan Barnbrook',tagline:'El dissenyador com a acte politic i cultural',period:'1966-present',origin:'Luton, R.U.',cat:'Tipografia / Cultura',bio:"Barnbrook demostra que el disseny pot ser un acte de resistencia. Les seves tipografies, portades de Bowie i projectes critics demostren que el treball grafic pot tenir postura moral.",style:['Referents historics recontextualitzats','Tipografies que evoquen periodes especifics','Tensio entre bellesa formal i missatge critic',"Detall tipografic d'altissima precisio",'Ironia formal com a eina'],tech:['Investigacio historica tipografica exhaustiva','Disseny de families tipografiques completes','Portades com a manifest visual','Espai negatiu amb precisio extrema','Capes de significat cultural'],pr:[{n:'El disseny te responsabilitat',d:'Per a qui i com treballes es part del treball.'},{n:'La historia es font',d:'No citem la historia per nostalgia sino per carregar les formes de nou significat.'},{n:'La tipografia te politica',d:"Cada tipus te associacions culturals que el dissenyador conscient explota o evita."}],works:[{t:'Portades de David Bowie',d:'Heathen, Reality i The Next Day com a objectes disseny-art'},{t:'Mason Typeface (1992)',d:'Formes medievals amb sensibilitat contemporania'},{t:'Virus Fonts',d:'Cataleg experimental de referencia mundial als 90'}],lesson:"Defineix la teva postura abans de la teva estetica. El treball que tries fer et defineix tant com la manera en que ho executes.",src:['Barnbrook Bible (2007)','barnbrook.net','Eye Magazine Issue 46']},
+{id:'kidd',name:'Chip Kidd',tagline:'El rei de les portades de llibres',period:'1964-present',origin:'Pennsylvania, EUA',cat:'Disseny Editorial',bio:"Editor i dissenyador a Knopf, Kidd va convertir la portada de llibre en un art form autonom. La seva capacitat per capturar l'essencia d'una narrativa el va convertir en el referent global del disseny editorial.",style:["Concepte visual que reflecteix l'anima del llibre",'Us sorprenent de tipografia i fotografia','Misteri com a eina d\'atraccio','Minimalisme conceptual d\'alt impacte','Humor intelligent quan aplica'],tech:['Lectura profunda del manuscrit com a primer pas','Exploracio de metafores visuals alternatives',"Fotografia d'estudi amb concepte precis",'Tipografia que amplifica el significat','Disseny com a teaser narratiu'],pr:[{n:'La portada es una promesa',d:"Ha de transmetre el to i l'emocio del llibre en un segon."},{n:'El misteri convida',d:"Una portada que ho explica tot no convida a obrir-se."},{n:'El concepte primer',d:'Sense una idea solida, cap execucio brillant salva una portada.'}],works:[{t:'Jurassic Park (1990)',d:'Silueta de T-Rex: una de les portades mes recognoscibles del segle XX'},{t:'The Cheese Monkeys',d:'Autoreferencia tipografica i humor de dissenyador'},{t:'Batman: Death in the Family',d:"Va elevar l'estandard visual del comic"}],lesson:"Llegeix el que dissenyes. La comprensio profunda del contingut es l'unica font d'una idea visual original.",src:['Chip Kidd: Book One (2005)','www.chipkidd.com','TED Talk 2012']},
+{id:'janoff',name:'Rob Janoff',tagline:'El creador del simbol tecnologic mes valuos',period:'1952-present',origin:'California, EUA',cat:'Identitat Corporativa',bio:"El 1977, amb 25 anys, Janoff va dissenyar la poma mossegada d'Apple. Sense saber-ho, estava creant l'icona corporativa mes valuosa de tota la historia del disseny.",style:['Forma natural simplificada a essencia geometrica','Mossegada com a element funcional i memorable','Proporcions que resisteixen qualsevol escala','Versatilitat formal extrema','Icona autonoma que funciona sense nom'],tech:["Observacio del mon natural com a font",'Simplificacio progressiva fins a l\'icona',"Test d'escala des de l'inici",'Simbol autonom del nom','Versatilitat cromatica planificada'],pr:[{n:"La bona icona no necessita explicacio",d:'Si necessites text perque s\'entengui, el logotip ha fracassat.'},{n:'La imperfeccio crea memoria',d:'La mossegada fa la poma recognoscible a millimetres. Sense ella, seria generica.'},{n:"Dissenya per a l'escala minima",d:'Si funciona a 16px, funcionara en qualsevol cartell.'}],works:[{t:'Apple Logo (1977)',d:'El simbol corporatiu mes reconegut i valuos de la historia'},{t:'Apple II Packaging',d:'Sistema d\'identitat inicial amb paleta multicolor'},{t:'Evolucio de la poma',d:"Dels colors a la monocromia: adaptacio perfecta a cada era"}],lesson:"El millor logotip te una imperfeccio calculada que el fa unic. Busca el detall que converteix una forma generica en una forma teva.",src:['CreativeBits interview (2009)','www.robjanoff.com','Designing Brand Identity, Wheeler']},
+{id:'sagmeister',name:'Stefan Sagmeister',tagline:"L'artista del disseny conceptual extrem",period:'1962-present',origin:'Bregenz, Austria',cat:'Disseny Conceptual',bio:"Sagmeister va explorar els limits entre disseny i art pur. La seva tipografia gravada en el seu propi cos va demostrar que el disseny pot provocar en el sentit mes artistic.",style:['Tipografia feta amb objectes fisics o cossos','Concepte que supera l\'execucio en impacte','Humor fosc i ironia conceptual','Proces visible com a part del disseny','Autobiografia com a material creatiu'],tech:['Tipografia objectual i corporal','Installacio fotografica de text','Proces documentat com a lliurable','Materials no convencionals','Concepte primer, execucio secundaria'],pr:[{n:'El proces es el disseny',d:'La forma en que es fa alguna cosa pot ser mes comunicativa que el resultat.'},{n:'El disseny ha de provocar',d:'Si un treball no genera cap reaccio, no ha complert la seva funcio basica.'},{n:'Anys sabatics son disseny',d:'La millor creativitat neix de desconnectar sistematicament.'}],works:[{t:'Lou Reed Set the Twilight Reeling',d:"Tipografia tallada a la pell, fotografiada com a portada d'album"},{t:'Things I Have Learned in My Life So Far',d:'Llibre-objecte disseny-art-autobiografia'},{t:'The Happy Show',d:"Exposicio sobre la felicitat com a investigacio de disseny"}],lesson:"Un cop a l'any, dissenya alguna cosa absolutament personal sense client ni brief. Aquell treball ho definira tot.",src:['Made You Look (2001)','The Happy Film (2016)','www.sagmeisterwalsh.com']},
+{id:'walsh',name:'Jessica Walsh',tagline:"L'avanguardista del disseny colorit i surrealista",period:'1986-present',origin:'Nova York, EUA',cat:'Disseny Contemporani',bio:"Fundadora de &Walsh, ha construait un dels estudis mes influents combinant illustracio surreal, color explosiu i missatges d'empowerment que connecten amb audiencies joves.",style:['Paletes cromatiques audaces i saturades','Surrealisme visual amb cossos i objectes',"Col.latge digital d'altissima produccio",'Tipografia personalitzada i colorida','Estetica femenina poderosa i desafiadora'],tech:['Art direction de fotografia surreal',"Col.latge digital complex en Photoshop",'Illustracio vectorial expressiva','Color com a emocio i posicionament','Projectes personals com a carta de presentacio'],pr:[{n:"El color es actitud",d:'Una paleta valent comunica confianca abans de llegir cap paraula.'},{n:'El personal es professional',d:'Els teus projectes mes personals son el teu millor portfolio.'},{n:'El disseny pot sanar',d:'El treball creatiu te el poder de canviar percepcions culturals.'}],works:[{t:'40 Days of Dating (2013)',d:'Projecte personal viral que es va convertir en llibre i pellicules'},{t:'Ladies Wine & Design',d:'Iniciativa global que dona suport a dones en el disseny'},{t:'&Walsh Studio',d:"L'estudi mes seguit a Instagram en disseny"}],lesson:"Els projectes personals publicats son el millor portfolio. Crea el treball que vols que et encomanin.",src:['andwalsh.com','40 Days of Dating book (2014)','Ladies Wine & Design program']},
+{id:'saville',name:'Peter Saville',tagline:'El dissenyador que va donar forma visual a la melancolia',period:'1955-present',origin:'Manchester, R.U.',cat:'Disseny Musical / Cultural',bio:"Dissenyador resident de Factory Records, Saville va crear les portades mes influents del rock. Unknown Pleasures i Blue Monday son objectes de disseny tant com albums musicals.",style:['Apropiacio cultural sofisticada','Relacio tensa entre imatge i text','Paletes fredes i atmosferiques','Tipografia classica en context contemporani',"Poetica visual de l'ambiguitat"],tech:["Apropiacio i recontextualitzacio d'imatges",'Tipografia de referencia historica','Fotografia atmosferica minimament intervinguda','Composicio per sostraccio','Codi i simbol com a sistema cultural'],pr:[{n:"L'apropiacio es creaccio",d:'Usar referents existents en nou context genera significats originals.'},{n:'El disseny atmosferic',d:"Una portada no descriu la musica, ha de recrear el seu estat emocional."},{n:"L'ambiguitat es riquesa",d:'Les imatges sense una sola lectura correcta son les que perduren.'}],works:[{t:'Unknown Pleasures - Joy Division (1979)',d:"Ones de radio d'un pulsar: la portada mes referenciada del rock"},{t:'Blue Monday - New Order (1983)',d:'Floppy disk: tecnologia i fredor en una sola forma'},{t:"Closer - Joy Division (1980)",d:"Fotografia funeraria que amplifica el drama de l'album postum"}],lesson:"Construeix un arxiu d'imatges que t'emocionen sense saber encara per a que. Quan arribi el projecte correcte, hi trobaras la resposta.",src:['Designed by Peter Saville (2003)','Factory Records (2006)','www.peter-saville.com']},
+{id:'mariscal',name:'Javier Mariscal',tagline:'El creador del disseny mediterrani pop',period:'1950-present',origin:'Valencia, Espanya',cat:'Disseny / Illustracio',bio:"Mariscal es el dissenyador espanyol mes internacional. La seva obra esborra les fronteres entre disseny, illustracio i art pop amb l'energia lluminosa de la Mediterrania.",style:["Linia fluida i expressiva, mai rigida",'Colors brillants i calids mediterranis','Personatges amb personalitat i humor','Fusio organica disseny-illustracio','Alegria formal com a valor estetic'],tech:['Esbocos com a pensament primari','Color pla amb variacions de to','Linia irregular com a firma personal','Composicio centrada en el personatge','Adaptacio natural entre mitjans'],pr:[{n:'El disseny viu',d:"Un personatge que sembla que respira connecta emocionalment abans que cap altre."},{n:"L'espontaneitat es tecnica",d:'La linia solta requereix mes domini que la linia perfecta.'},{n:'Dissenya amb alegria',d:"L'estat emocional del dissenyador apareix sempre en el resultat final."}],works:[{t:'Cobi (Barcelona 92)',d:"Mascota olimpica mes estimada de la historia. Va revolucionar el genere"},{t:'Bar Cel Ona',d:'Disseny total: arquitectura, mobiliari i identitat'},{t:'Twipsy (Hannover 2000)',d:"Personatge digital per a l'Exposicio Universal alemanya"}],lesson:"Dissenya personatges amb anima, no tan sols amb forma. La diferencia entre memorable i generic es si les seves accions futures semblen coherents.",src:['Designing the New Spain (2009)','www.mariscal.com','IVAM Valencia retrospectiva']},
+{id:'trochut',name:'Alex Trochut',tagline:'El mestre de la tipografia com a escultura',period:'1981-present',origin:'Barcelona, Espanya',cat:'Tipografia / Illustracio',bio:"Net del llegendari tipograf Joan Trochut, Alex ha construait una carrera internacional creant lettering que actua com a illustracio, amb una complexitat tecnica i decorativa extraordinaria.",style:['Tipografia tridimensional i escultocica','Fusio de lletra i illustracio sense separacio','Ornamentacio complexa i organica','Control tecnic i caos visual equilibrats','Paletes sofisticades amb daurats i textures'],tech:['Construccio modular de lletres propies','Vectoritzacio manual d\'altissima precisio',"Barreja de referents historics i contemporanis",'Textures fotografiques integrades','Proces iteratiu de complexitat creixent'],pr:[{n:"L'herencia es un trampoli",d:'Coneixer els mestres del passat dona vocabulari, no limits.'},{n:'El detall es el treball real',d:'La distancia entre bo i extraordinari viu en els detalls invisibles.'},{n:'La tipografia te volum',d:'La lletra pot tenir pes, textura, llum i ombra com una escultura.'}],works:[{t:'Nike, Adidas, Rolling Stones',d:'Lettering de campanya global per a marques de primer nivell'},{t:'The New Yorker, Wired, Time',d:"Portades tipografiques que defineixen l'estandard actual"},{t:'More is More (Llibre)',d:'Monografia que resumeix la filosofia maximalista del lettering'}],lesson:"Comenca amb mes del que necessites. El maximalisme disciplinat es mes dificil que el minimalisme.",src:['More is More (2015)','www.alextrochut.com','CommArts Typography Annual 2012']},
+{id:'novillo',name:'Cruz Novillo',tagline:'La llegenda silenciosa del disseny espanyol',period:'1936-present',origin:'Conca, Espanya',cat:'Identitat / Senaletica',bio:"El dissenyador mes influent de la historia recent d'Espanya. Els seus logos per a Renfe, Correus i el Banc d'Espanya continuen vigents decades despres.",style:['Geometria constructivista pura','Color com a identitat diferenciadora inequivoca','Simbol que funciona sense text auxiliar','Estructura modular i sistematica','Longevitat com a criteri fonamental'],tech:['Analisi semiotica profunda','Construccio geometrica amb instruments de precisio','Sistema de color institucional','Manual d\'identitat exhaustiu','Test en condicions extremes'],pr:[{n:'La identitat dura decades',d:'Un logotip institucional ha de funcionar amb igual eficacia 40 anys despres.'},{n:'El simbol precedeix el nom',d:'La forma visual ha de comunicar abans que el cervell processi les lletres.'},{n:'El color es identitat nacional',d:"El groc de Correus i el vermell de Renfe formen part de la identitat d'Espanya."}],works:[{t:'Renfe',d:"El sistema d'identitat ferroviaria espanyol mes reconegut"},{t:"Correus d'Espanya",d:'El corn postal groc, simbol nacional de generacions'},{t:'Fundacio ONCE',d:'Identitat que comunica solidaritat i modernitat institucional'}],lesson:"El disseny institucional te la maxima responsabilitat: comunica a tot un pais. Dissenya per a la persona amb menys formacio visual.",src:['Cruz Novillo: Identidades Corporativas, DIMAD (2008)','www.cruznovillo.com','ADG-FAD Archive']},
+{id:'gimeno',name:'Pepe Gimeno',tagline:'El mestre del disseny tipografic poetic',period:'1955-present',origin:'Valencia, Espanya',cat:'Tipografia / Disseny Grafic',bio:"Un dels tipografs espanyols mes reconeguts internacionalment, Gimeno explora el territori entre tipografia, disseny i poesia visual.",style:['Tipografia amb alt contingut emocional','Escala i ritme tipografic com a expressio','Materialitat com a part integral del concepte','Experimentacio dins del rigor formal','Poetica visual hispanomediterrania'],tech:['Estudi profund de la historia tipografica','Composicio tipografica com a partitura musical','Seleccio tipografica com a posicionament cultural','Paper i format com a decisio de contingut','Edicio tipografica al maxim detall'],pr:[{n:'La tipografia te musica',d:"El ritme i el silenci de les lletres son tan importants com la seva forma."},{n:'El suport es missatge',d:'El paper i el pes del material comuniquen abans de llegir.'},{n:'Qualitat sobre quantitat',d:'Un treball perfectament resolt val mes que cent de correctes.'}],works:[{t:'La Grafica Empirica',d:'Llibre-objecte entre poesia i disseny tipografic'},{t:"Museu de les Ciencies (Valencia)",d:"Sistema d'identitat amb alta carrega cultural valenciana"},{t:'Projectes editorials privats',d:'Edicions de bibliofilia i projectes de referencia nacional'}],lesson:"Dedica el mateix temps a triar el paper que a triar la tipografia. El disseny existeix en l'espai fisic, no en la pantalla.",src:['La Grafica Empirica (2004)','www.pepegimeno.com','ADG-FAD Premis Laus Archive']}
+];
+
+const PROCS=[
+{id:'p0',title:"Proces d'Identitat Corporativa",refs:'Paul Rand · Paula Scher · Cruz Novillo',intro:"La identitat corporativa es el sistema visual que dona forma a la personalitat d'una organitzacio.",phases:[{n:'Investigacio i Diagnostic',d:'Abans de tracar una linia, entendre el mon del client.',acts:['Entrevistes amb stakeholders clau','Analisi del sector i benchmark','Revisio de materials existents','Definicio d\'atributs de personalitat (5-7 adjectius)','Brief estrategic validat pel client']},{n:'Conceptualitzacio',d:'Traduir els atributs en direccions visuals alternatives.',acts:['3 territoris conceptuals distints minim','Moodboards per a cada territori','20 esbocos a ma abans d\'obrir l\'ordinador','Seleccio de la direccio mes potent','Validacio del concepte verbal']},{n:'Disseny del Simbol',d:"Construccio de l'element central de la identitat.",acts:['10 variacions del simbol minim','Test d\'escala: 16px fins a format cartell','Test en blanc i negre primer','Versio positiva i negativa','Ajust de proporcions i kern optic']},{n:"Sistema d'Identitat",d:'Expandir el logotip a un sistema visual complet.',acts:['Paleta cromatica completa','Maxim 2 families tipografiques','Elements complementaris: patrons, icones','Aplicacions reals: targeta, papereria, web','Manual d\'identitat']},{n:'Presentacio i Lliurament',d:'Transmetre el valor del treball.',acts:['Presentacio narrativa','Mockups en context real','Guia d\'us per al client','Formats: AI/EPS, PNG, SVG, PDF','Sessio de validacio final']}],tools:[{n:'Adobe Illustrator',u:'Construccio vectorial'},{n:'Adobe InDesign',u:"Manual d'identitat"},{n:'Figma',u:'Mockups i col.laboracio'},{n:'Coolors',u:'Paletes cromatiques'}],src:['Designing Brand Identity, Alina Wheeler (2017)','Identity Designed, David Airey (2019)','Logo Design Love, David Airey (2010)',"The Brand Gap, Neumeier (2003)"]},
+{id:'p1',title:'Proces de Disseny Tipografic',refs:'Herb Lubalin · Alex Trochut · Pepe Gimeno',intro:"La tipografia es l'anima del disseny grafic. La diferencia entre un treball generic i un de memorable sempre viu en les decisions tipografiques.",phases:[{n:'Analisi del Context',d:'La tipografia correcta existeix en relacio a un context.',acts:['Definicio del to: formal/informal, classic/modern','Analisi del suport: pantalla, impres, cartelleria','Investigacio de referents tipografics del sector','6 families candidates minim','Test de llegibilitat en el suport real']},{n:'Seleccio i Combinacio',d:'Combinar tipografies es combinar personalitats.',acts:['Maxim 2 families per projecte','Combinacio: serif + sans o display + text','Test de contrast entre les dues families','Test d\'harmonia en proporcions','Proves amb el text real, mai Lorem Ipsum']},{n:'Jerarquia i Ritme',d:"El text ben compost guia l'ull sense que el lector ho percebi.",acts:['Escala completa: H1, H2, H3, cos, caption','Interlineat: 1.4-1.6 corregut; 1.1-1.2 titulars','Tracking global segons mida','Kern optic en titulars i logotips','45-75 caracters per linia com a optim']},{n:'Lettering Personalitzat',d:'Quan cap tipografia existent te la veu correcta.',acts:['Esbocos a ma: 3 versions de cada lletra','Digitalitzacio amb Bezier manual (mai autotrazar)','Ajust d\'espaiat entre tots els parells','Test en mides extremes','Comparativa amb tipografies similars']}],tools:[{n:'Google / Adobe Fonts',u:'Biblioteca i test'},{n:'Adobe Illustrator',u:'Lettering vectorial'},{n:'Fontself',u:'Creacio de fonts'},{n:'Type Scale',u:'Escales proporcionals'}],src:['Thinking with Type, Lupton (2010)',"The Elements of Typographic Style, Bringhurst",'Stop Stealing Sheep, Spiekermann (1993)','Typographie, Emil Ruder (1967)']},
+{id:'p2',title:'Proces de Cartelleria i Editorial',refs:'Saul Bass · Massimo Vignelli · Milton Glaser',intro:"El cartell i la pagina editorial son els formats mes exigents: comunicacio en un sol impacte visual.",phases:[{n:'Definicio del Missatge Central',d:'Un cartell amb multiples missatges no en te cap.',acts:["Quina es l'unica cosa que ha de comunicar?",'Jerarquia: missatge primari, secundari i terciari','Restriccions: format, tecnica, pressupost','Brief visual escrit en una sola frase','Call to action si n\'hi ha']},{n:'Exploracio Visual',d:"Generar varietat real abans de comprometre's.",acts:['10 miniatures en paper minim',"Almenys 2 enfocaments radicalment distints",'Composicions diverses','Test de llegibilitat a la distancia real','Seleccio per primer impacte']},{n:'Construccio de la Reticula',d:"L'estructura invisible que organitza l'espai visible.",acts:['Sistema de reticula: columnes, moduls, proporcio auria','Marges com a part activa de la composicio',"Area visual principal: on aterra l'ull primer",'Zones de silenci calculades','Prova de trencar la reticula un cop establerta']},{n:'Color i Finalitzacio',d:'El color es la darrera decisio i la mes important.',acts:['Test en escala de grisos primer','2-3 colors maxim per a cartelleria urbana','Validacio en el suport d\'impressio real','Funciona en fotocopia en blanc i negre?','Export en format correcte']}],tools:[{n:'Adobe InDesign',u:'Composicio i reticula'},{n:'Adobe Illustrator',u:'Elements vectorials'},{n:'Adobe Photoshop',u:'Imatge fotografica'},{n:'Pantone / Coolors',u:'Validacio cromatica'}],src:['Grid Systems, Muller-Brockmann (1981)','Making and Breaking the Grid, Samara (2017)',"The Poster: A Visual History, Iskin (2014)",'Meggs History of Graphic Design']},
+{id:'p3',title:'Proces de Disseny Experimental',refs:'David Carson · Stefan Sagmeister · Neville Brody',intro:"El disseny experimental no es caos: es el resultat d'un proces rigoris que explora els limits de les convencions.",phases:[{n:'Deconstruccio del Brief',d:'Rebutja les solucions mes previsibles.',acts:["Llista de les 5 solucions mes previsibles (per evitar-les)",'Preguntes subversives: i si el text no es llegeix?','Inversio de jerarquies: el petit gran, el gran petit','Quina emocio ha de generar aquest treball?','Definir la norma a transgredir i el motiu']},{n:'Exploracio Material',d:"Sortir de l'ordinador per trobar el que el digital no genera.",acts:["Experiments analogics: collage, fotografia, tinta","Exploracio d'accidents tecnics (glitch, blur, esquincat)",'Escaner i reinterpretacio de materials fisics','Text fet amb objectes, cossos, natura','Fotografia del proces com a material final']},{n:'Limits de la Comunicacio',d:'Fins a quin punt pot arribar la transgressio?',acts:['Test amb public no dissenyador: que senten?','Cal llegir-se o tan sols sentir-se?','Validacio honesta amb el client','Ajust del nivell de transgressio','Proces documentat com a lliurable']}],tools:[{n:'Camera / Escaner',u:'Materials fisics'},{n:'Adobe Photoshop',u:'Composicio digital'},{n:'Paper, tisores, tinta',u:'Exploracio analogica'},{n:'After Effects',u:'Animacio i motion'}],src:['The End of Print, Carson (1995)','Made You Look, Sagmeister (2001)','The Graphic Language of Neville Brody (1988)','Experimental Typography, Clough (2015)']},
+{id:'p4',title:'Proces de Disseny de Campanya',refs:'Jessica Walsh · Jonathan Barnbrook · Paula Scher',intro:"Una campanya es un sistema de peces que comparteixen un concepte central. Ha de mantenir reconeixibilitat en cada format.",phases:[{n:'Concepte de Campanya',d:'Tota la campanya en una sola idea.',acts:['Big Idea: la campanya en una sola oracio memorable','Territori visual: paleta, tipografia, estil fotografic','To: els tres adjectius que defineixen la veu','Moodboard de referents (inspirar, mai copiar)','Validacio estrategica amb els objectius del client']},{n:'Sistema de Peces',d:"Definir l'univers de formats abans de dissenyar cap.",acts:['Llistat complet: digital, impres, exterior, social','Peca master: la que defineix totes les altres','Adaptacions per canal mantenint concepte','Templates per a formats repetitius','Guia de campanya per a equips de produccio']},{n:'Produccio i Qualitat',d:'Mantenir la qualitat del concepte en tots els formats.',acts:['Checklist de qualitat: concepte, tipografia, color, espai','Revisio en context real: mobil, impressio, exterior',"Test de coherencia: es reconeix sense veure'ls junts?",'Control d\'arxius: nomenclatura i versions','Brief de produccio per a proveidors externs']}],tools:[{n:'Figma',u:'Components i col.laboracio'},{n:'Adobe Creative Suite',u:'Produccio de peces'},{n:'Frame.io / Notion',u:'Revisio i versions'},{n:'Canva Pro',u:'Adaptacions social media'}],src:['Hey Whipple Squeeze This, Sullivan','Ogilvy on Advertising (1983)','The Advertising Concept Book, Barry (2012)','D&AD Annual 2022-2024']}
+];
+
+const BIBLIO=[
+{cat:'Llibres Fonamentals',items:[{t:'Thinking with Type — Ellen Lupton (2010)',u:'https://www.thinkingwithtype.com'},{t:'Designing Brand Identity — Alina Wheeler (2017)',u:'https://www.amazon.com/dp/1118980689'},{t:'The Elements of Typographic Style — Bringhurst',u:'https://www.amazon.com/dp/0881792128'},{t:"Grid Systems — Muller-Brockmann",u:'https://www.amazon.com/dp/3721201450'},{t:"Meggs' History of Graphic Design",u:'https://www.amazon.com/dp/1119136245'},{t:'Seventy-nine Short Essays on Design — Bierut',u:'https://www.amazon.com/dp/1568987897'},{t:'Identity Designed — David Airey',u:'https://www.amazon.com/dp/1631595687'},{t:'Making and Breaking the Grid — Samara',u:'https://www.amazon.com/dp/163159523X'}]},
+{cat:'Recursos Online',items:[{t:'AIGA – American Institute of Graphic Arts',u:'https://www.aiga.org'},{t:"Brand New – Analisi critic d'identitats",u:'https://www.underconsideration.com/brandnew'},{t:'Eye Magazine – La revista de referencia',u:'https://www.eyemagazine.com'},{t:'Design Observer – Critica i cultura del disseny',u:'https://www.designobserver.com'},{t:"It's Nice That – Art i disseny contemporani",u:'https://www.itsnicethat.com'},{t:'Vignelli Canon (PDF gratuit)',u:'https://vignellicenter.rit.edu'},{t:'Lubalin Center – Tipografia',u:'https://lubalincenter.cooper.edu'},{t:'Art of the Title – Titols de credit',u:'https://www.artofthetitle.com'}]},
+{cat:'Museus i Arxius',items:[{t:'MoMA Design Collection, Nova York',u:'https://www.moma.org/collection/'},{t:'V&A Design Archives, Londres',u:'https://www.vam.ac.uk/design'},{t:"IVAM – Institut Valencia d'Art Modern",u:'https://www.ivam.es'},{t:'Museu del Disseny, Barcelona',u:'https://museudeldisseny.cat'},{t:'Letterform Archive, San Francisco',u:'https://letterformarchive.org'},{t:'ADG-FAD Premis Laus, Barcelona',u:'https://www.fad.cat/premis-laus'}]},
+{cat:'Plataformes de Referencia',items:[{t:'Behance – Portfolio i referencia global',u:'https://www.behance.net'},{t:'Fonts In Use – Tipografia en context real',u:'https://fontsinuse.com'},{t:'Google Fonts – Biblioteca gratuita',u:'https://fonts.google.com'},{t:'Coolors – Generador de paletes',u:'https://coolors.co'},{t:'Type Scale – Escales tipografiques',u:'https://typescale.com'},{t:'Font Pair – Combinacions de fonts',u:'https://www.fontpair.co'}]}
+];
+
+/* ── localStorage ─────────────────────────────────────────────── */
+function getCustom(){try{return JSON.parse(localStorage.getItem(LS)||'[]');}catch(e){return[];}}
+function saveCustom(a){localStorage.setItem(LS,JSON.stringify(a));}
+function deleteCustom(id){saveCustom(getCustom().filter(d=>d.id!==id));renderAll();}
+
+/* ── Video click-to-load ──────────────────────────────────────── */
+function loadVideo(el,id,name){el.parentElement.innerHTML=`<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1" allow="autoplay;fullscreen" allowfullscreen title="${name}"></iframe>`;}
+
+/* ── Toggle card ──────────────────────────────────────────────── */
+function toggleCard(id){
+  const c=document.getElementById('dc_'+id);
+  const b=document.getElementById('db_'+id);
+  if(!c||!b)return;
+  const o=b.classList.toggle('open');
+  c.classList.toggle('open',o);
+  const car=c.querySelector('.dc-caret');
+  if(car)car.textContent=o?'+':'+';
+  if(o)setTimeout(()=>c.scrollIntoView({behavior:'smooth',block:'start'}),50);
+}
+
+/* ── Build card ───────────────────────────────────────────────── */
+let gIdx=0;
+function buildCard(d,isCustom){
+  gIdx++;
+  const idx=gIdx;
+  const vid=d.vid||VIDEOS[d.id];
+  const lks=d.links||LINKS[d.id]||[];
+  const port=d.portrait||PORTRAITS[d.id];
+  const ini=(d.name||'').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  const portHTML=port
+    ?`<img src="${port}" alt="${d.name}" onerror="this.parentElement.innerHTML='<div class=\\'sp-port-ph\\'>${ini}</div>'">`
+    :`<div class="sp-port-ph">${ini}</div>`;
+  const prs=(d.pr||[]).filter(p=>p.n).slice(0,3);
+  const wks=(d.works||[]).filter(w=>w.t).slice(0,3);
+  const prHTML=prs.map((p,i)=>`<div class="sp-pr"><div class="sp-pr-ghost">${i+1}</div><div class="sp-pr-name">${p.n}</div><div class="sp-pr-desc">${p.d}</div></div>`).join('');
+  const wkHTML=wks.map((w,i)=>`<div class="sp-work"><div class="sp-work-n">0${i+1}</div><div class="sp-work-t">${w.t}</div><div class="sp-work-d">${w.d||''}</div></div>`).join('');
+  const vidHTML=vid?`<div class="sp-video"><div class="sp-video-ph" onclick="loadVideo(this,'${vid}','${d.name.replace(/'/g,'\\\'')}')" ><div class="sp-video-btn">&#9654;</div><div class="sp-video-lbl">Reproduir video</div></div></div>`:'';
+  const lksHTML=lks.length?`<div class="sp-links"><div class="sp-links-lbl">Enllacos</div>${lks.map(l=>`<a href="${l.u}" target="_blank" rel="noopener" class="sp-link"><span class="sp-link-icon">${l.i||'🔗'}</span><div><span class="sp-link-name">${l.l}</span><span class="sp-link-url">${l.u.replace('https://','')}</span></div></a>`).join('')}</div>`:'';
+  const mediaHTML=(vidHTML||lksHTML)?`<div class="sp-media">${vidHTML}${lksHTML}</div>`:'';
+  const delBtn=isCustom?`<button class="dc-del" onclick="event.stopPropagation();if(confirm('Eliminar?'))deleteCustom('${d.id}')" title="Eliminar">&#215;</button>`:'';
+  return `<div class="dc${isCustom?' custom':''}" id="dc_${d.id}">
+    ${delBtn}
+    <div class="dc-head" onclick="toggleCard('${d.id}')">
+      <div class="dc-idx">${String(idx).padStart(2,'0')}</div>
+      <div>
+        <div class="dc-name">${d.name}</div>
+        <div class="dc-tagline">${d.tagline||''}</div>
+        <div class="dc-chips"><span class="chip chip-cat">${d.cat||''}</span><span class="chip">${d.period||''}</span><span class="chip">${d.origin||''}</span></div>
+      </div>
+      <div class="dc-caret">+</div>
+    </div>
+    <div class="dc-body" id="db_${d.id}">
+      <div class="dc-spread">
+        <div class="sp-top">
+          <div class="sp-port">${portHTML}<div class="sp-port-cap">${d.name} · ${d.period||''}</div></div>
+          <div class="sp-bio">
+            <div class="sp-bio-meta"><span>${d.period||''}</span> · ${d.origin||''} · <span>${d.cat||''}</span></div>
+            <div class="sp-bio-text">${d.bio||''}</div>
+          </div>
+        </div>
+        <div class="sp-cols">
+          <div class="sp-col"><div class="sp-lbl">Estil Visual</div><ul class="sp-list">${(d.style||[]).map(s=>`<li>${s}</li>`).join('')}</ul></div>
+          <div class="sp-col"><div class="sp-lbl">Tecniques Clau</div><ul class="sp-list">${(d.tech||[]).map(t=>`<li>${t}</li>`).join('')}</ul></div>
+          <div class="sp-col"><div class="sp-lbl">Obres Mestres</div><ul class="sp-list">${wks.map(w=>`<li><strong>${w.t}</strong> — ${w.d||''}</li>`).join('')}</ul></div>
+        </div>
+        ${prs.length?`<div class="sp-principles">${prHTML}</div>`:''}
+        <div class="sp-lesson"><div class="sp-lesson-lbl">Llico</div><div class="sp-lesson-txt">${d.lesson||''}</div></div>
+        ${mediaHTML}
+        <div class="sp-sources"><span class="sp-src-lbl">Fonts</span>${(d.src||[]).map(s=>`<span class="sp-src-pill">${s}</span>`).join('')}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ── Render all ───────────────────────────────────────────────── */
+function renderAll(filter){
+  filter=filter||'';
+  const sec=document.getElementById('dSection');
+  sec.innerHTML='';
+  gIdx=0;
+  const custom=getCustom();
+  document.getElementById('stat-n').textContent=DES.length+custom.length;
+  CATS.forEach((cat,ci)=>{
+    const base=DES.slice(cat.r[0],cat.r[1]+1).filter(d=>!filter||d.name.toLowerCase().includes(filter.toLowerCase())||d.cat.toLowerCase().includes(filter.toLowerCase()));
+    const cust=ci===CATS.length-1?custom.filter(d=>!filter||d.name.toLowerCase().includes(filter.toLowerCase())):[];
+    if(!base.length&&!cust.length)return;
+    const banner=document.createElement('div');
+    banner.className='cat-banner';
+    banner.innerHTML=`<div class="cat-bi"><div><div class="cat-btitle">${cat.t}</div><div class="cat-bsub">${cat.s}</div></div></div><div class="cat-bnum">0${ci+1}</div>`;
+    sec.appendChild(banner);
+    const grid=document.createElement('div');
+    grid.className='d-grid';
+    if(!base.length&&!cust.length){grid.innerHTML='<div class="empty">Cap resultat per a aquesta cerca.</div>';}
+    else{base.forEach(d=>{grid.innerHTML+=buildCard(d,false);});cust.forEach(d=>{grid.innerHTML+=buildCard(d,true);});}
+    sec.appendChild(grid);
+  });
+}
+
+/* ── Render processes ─────────────────────────────────────────── */
+function renderProcs(){
+  const sec=document.getElementById('pSection');
+  PROCS.forEach((pr,i)=>{
+    const c=document.createElement('div');
+    c.className='proc-card';
+    c.innerHTML=`<div class="proc-head" onclick="this.parentElement.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
+      <div class="proc-n">0${i+1}</div>
+      <div><div class="proc-title">${pr.title}</div><div class="proc-refs">${pr.refs}</div><div class="proc-intro">${pr.intro}</div></div>
+      <div class="proc-arr">&#8594;</div>
+    </div>
+    <div class="proc-body">
+      <div class="proc-inner">
+        <div class="phases">${pr.phases.map((ph,pi)=>`<div class="phase">
+          <div class="ph-nc"><div class="ph-c2">${pi+1}</div>${pi<pr.phases.length-1?'<div class="ph-line"></div>':''}</div>
+          <div class="ph-c"><div class="ph-name">${ph.n}</div><div class="ph-desc">${ph.d}</div><ul class="ph-acts">${ph.acts.map(a=>`<li>${a}</li>`).join('')}</ul></div>
+        </div>`).join('')}</div>
+        <div class="proc-tools">${pr.tools.map(t=>`<div class="proc-tool"><div class="proc-tool-n">${t.n}</div><div class="proc-tool-u">${t.u}</div></div>`).join('')}</div>
+        <div class="proc-src"><span class="sp-src-lbl">Fonts</span>${pr.src.map(s=>`<span class="sp-src-pill">${s}</span>`).join('')}</div>
+      </div>
+    </div>`;
+    sec.appendChild(c);
+  });
+}
+
+/* ── Render biblio ─────────────────────────────────────────────── */
+function renderBiblio(){
+  const sec=document.getElementById('bSection');
+  const grid=document.createElement('div');
+  grid.className='bib-grid';
+  BIBLIO.forEach(s=>{
+    const div=document.createElement('div');
+    div.className='bib-sec';
+    div.innerHTML=`<div class="bib-cat">${s.cat}</div><ul class="bib-list">${s.items.map(i=>`<li>${i.u?`<a href="${i.u}" target="_blank" rel="noopener">${i.t}</a>`:i.t}</li>`).join('')}</ul>`;
+    grid.appendChild(div);
+  });
+  sec.appendChild(grid);
+}
+
+/* ── Masthead nav ─────────────────────────────────────────────── */
+function buildNav(){
+  const nav=document.getElementById('mastnav');
+  CATS.forEach(cat=>{
+    const a=document.createElement('a');
+    a.className='mnav';a.textContent=cat.t.split(' ')[0];a.href='#';
+    a.onclick=(e)=>{e.preventDefault();const bs=document.querySelectorAll('.cat-banner');const idx=CATS.indexOf(cat);if(bs[idx])bs[idx].scrollIntoView({behavior:'smooth'});};
+    nav.appendChild(a);
+  });
+  [{l:'Processos',fn:()=>document.getElementById('pSection').scrollIntoView({behavior:'smooth'})},
+   {l:'Bibliog.',fn:()=>document.getElementById('bSection').scrollIntoView({behavior:'smooth'})}].forEach(item=>{
+    const a=document.createElement('a');a.className='mnav';a.textContent=item.l;a.href='#';a.onclick=(e)=>{e.preventDefault();item.fn();};nav.appendChild(a);
+  });
+}
+
+/* ── CMS modal ─────────────────────────────────────────────────── */
+const mo=document.getElementById('mo');
+document.getElementById('fab').onclick=()=>mo.classList.add('open');
+document.getElementById('mClose').onclick=()=>mo.classList.remove('open');
+document.getElementById('mCancel').onclick=()=>mo.classList.remove('open');
+mo.onclick=(e)=>{if(e.target===mo)mo.classList.remove('open');};
+document.getElementById('mSave').onclick=()=>{
+  const name=(document.getElementById('f-name').value||'').trim();
+  if(!name){alert('El nom es obligatori.');return;}
+  const lesson=(document.getElementById('f-lesson').value||'').trim();
+  if(!lesson){alert("La llico es obligatoria.");return;}
+  const lines=t=>t.split('\n').map(l=>l.trim()).filter(Boolean);
+  const pr=[[document.getElementById('f-p1n').value,document.getElementById('f-p1d').value],[document.getElementById('f-p2n').value,document.getElementById('f-p2d').value],[document.getElementById('f-p3n').value,document.getElementById('f-p3d').value]].filter(([n])=>n.trim()).map(([n,d])=>({n:n.trim(),d:d.trim()}));
+  const works=[[document.getElementById('f-w1t').value,document.getElementById('f-w1d').value],[document.getElementById('f-w2t').value,document.getElementById('f-w2d').value],[document.getElementById('f-w3t').value,document.getElementById('f-w3d').value]].filter(([t])=>t.trim()).map(([t,d])=>({t:t.trim(),d:d.trim()}));
+  const links=[[document.getElementById('f-l1n').value,document.getElementById('f-l1u').value],[document.getElementById('f-l2n').value,document.getElementById('f-l2u').value],[document.getElementById('f-l3n').value,document.getElementById('f-l3u').value]].filter(([l,u])=>l.trim()&&u.trim()).map(([l,u])=>({l:l.trim(),u:u.trim(),i:'🔗'}));
+  const d={id:'custom_'+Date.now(),name,tagline:(document.getElementById('f-tagline').value||'').trim(),period:(document.getElementById('f-period').value||'').trim(),origin:(document.getElementById('f-origin').value||'').trim(),cat:(document.getElementById('f-cat').value||'').trim(),portrait:(document.getElementById('f-portrait').value||'').trim()||null,bio:(document.getElementById('f-bio').value||'').trim(),style:lines(document.getElementById('f-style').value||''),tech:lines(document.getElementById('f-tech').value||''),pr,works,lesson,src:lines(document.getElementById('f-src').value||''),vid:(document.getElementById('f-vid').value||'').trim()||null,links};
+  const ex=getCustom();ex.push(d);saveCustom(ex);
+  document.querySelectorAll('#mo input,#mo textarea').forEach(el=>el.value='');
+  mo.classList.remove('open');
+  renderAll(document.getElementById('searchInput').value);
+};
+
+/* ── Search ────────────────────────────────────────────────────── */
+document.getElementById('searchInput').addEventListener('input',e=>renderAll(e.target.value));
+
+/* ── Back to top ────────────────────────────────────────────────── */
+const btt=document.getElementById('btt');
+window.addEventListener('scroll',()=>btt.classList.toggle('show',window.scrollY>500));
+btt.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+
+/* ── Init ───────────────────────────────────────────────────────── */
+buildNav();
+renderAll();
+renderProcs();
+renderBiblio();
+</script>
+</body>
+</html>
