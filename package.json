@@ -1,0 +1,9 @@
+{
+  "name": "dissenyopedia",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.26.0",
+    "@supabase/supabase-js": "^2.71.0"
+  }
+}

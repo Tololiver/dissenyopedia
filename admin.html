@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Dissenyopedia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Lora:ital,wght@0,400;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0a;--ink2:#1c1c1c;--mid:#666;--faint:#aaa;--rule:#ddd;--paper:#f8f7f5;--w:#fff;--red:#C41E3A;--red2:#f5e0e3;--green:#16a34a;--g:"Bricolage Grotesque",system-ui,sans-serif;--s:"Lora",Georgia,serif;--m:"JetBrains Mono",monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--g);-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:inherit;text-decoration:none}button{cursor:pointer;font-family:inherit}
+input,textarea,select{font-family:var(--s)}
+
+/* LOGIN */
+.login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--ink)}
+.login-box{background:var(--w);padding:40px;width:360px;border-top:5px solid var(--red)}
+.login-logo{font-family:var(--g);font-size:22px;font-weight:800;text-transform:uppercase;margin-bottom:4px}
+.login-sub{font-family:var(--m);font-size:10px;color:var(--red);letter-spacing:.15em;text-transform:uppercase;margin-bottom:28px}
+.login-box input{width:100%;border:1px solid var(--rule);padding:10px 12px;font-size:14px;outline:none;margin-bottom:12px}
+.login-box input:focus{border-color:var(--red)}
+.login-btn{width:100%;background:var(--red);color:var(--w);border:none;padding:11px;font-family:var(--g);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:background .15s}
+.login-btn:hover{background:var(--ink)}
+.login-err{font-family:var(--m);font-size:11px;color:var(--red);margin-top:8px;display:none}
+
+/* ADMIN LAYOUT */
+.admin{display:none}
+.mast{background:var(--w);border-bottom:3px solid var(--ink);position:sticky;top:0;z-index:100}
+.mast-i{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;height:48px;gap:16px}
+.mast-logo{font-family:var(--g);font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:-.02em}
+.mast-badge{font-family:var(--m);font-size:9px;background:var(--red);color:var(--w);padding:2px 8px;letter-spacing:.1em;text-transform:uppercase}
+.mast-sep{flex:1}
+.mast-link{font-family:var(--m);font-size:10px;color:var(--mid);letter-spacing:.08em;text-transform:uppercase;padding:0 12px;border-left:1px solid var(--rule);cursor:pointer;transition:color .15s;height:48px;display:flex;align-items:center}
+.mast-link:hover{color:var(--red)}
+.mast-link.active{color:var(--ink);font-weight:700}
+
+/* TABS */
+.tab-content{display:none;max-width:1200px;margin:0 auto;padding:32px 24px}
+.tab-content.active{display:block}
+
+/* SECTION TITLES */
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:16px;border-bottom:3px solid var(--ink)}
+.sec-title{font-family:var(--g);font-size:24px;font-weight:800;letter-spacing:-.02em}
+
+/* BUTTONS */
+.btn{padding:9px 18px;border:none;font-family:var(--g);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:6px}
+.btn-red{background:var(--red);color:var(--w)}.btn-red:hover{background:var(--ink)}
+.btn-ink{background:var(--ink);color:var(--w)}.btn-ink:hover{background:#333}
+.btn-ghost{background:none;border:1px solid var(--rule);color:var(--mid)}.btn-ghost:hover{border-color:var(--ink);color:var(--ink)}
+.btn-green{background:var(--green);color:var(--w)}
+.btn-sm{padding:5px 12px;font-size:10px}
+.btn-icon{width:30px;height:30px;padding:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+
+/* AI GENERATE BOX */
+.ai-box{background:var(--ink);padding:28px;margin-bottom:32px;display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:end}
+.ai-box-title{font-family:var(--m);font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:8px;grid-column:1/-1}
+.ai-input{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:var(--w);padding:10px 14px;font-family:var(--s);font-size:14px;outline:none;transition:border-color .15s;width:100%}
+.ai-input:focus{border-color:var(--red)}
+.ai-input::placeholder{color:rgba(255,255,255,.3)}
+.ai-lang select{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:var(--w);padding:10px 10px;font-family:var(--m);font-size:12px;outline:none}
+.ai-loading{display:none;font-family:var(--m);font-size:10px;color:var(--red);letter-spacing:.1em;text-transform:uppercase;animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* DESIGNER LIST */
+.designer-list{display:flex;flex-direction:column;gap:2px}
+.ditem{background:var(--w);border:1px solid var(--rule);display:grid;grid-template-columns:36px 1fr auto auto auto;gap:0;align-items:center;transition:background .12s}
+.ditem:hover{background:var(--paper)}
+.ditem-order{font-family:var(--m);font-size:13px;font-weight:700;color:var(--rule);text-align:center;padding:0 8px}
+.ditem-info{padding:14px 16px}
+.ditem-name{font-family:var(--g);font-size:14px;font-weight:700;letter-spacing:-.01em;margin-bottom:3px}
+.ditem-meta{font-family:var(--m);font-size:9px;color:var(--mid);letter-spacing:.08em;text-transform:uppercase}
+.ditem-cat{font-family:var(--m);font-size:9px;color:var(--red);letter-spacing:.08em;text-transform:uppercase;padding:0 12px}
+.ditem-pub{width:60px;text-align:center}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%}
+.dot-green{background:var(--green)}
+.dot-grey{background:var(--rule)}
+.ditem-actions{display:flex;gap:4px;padding:0 12px}
+
+/* PREVIEW PANEL */
+.preview-panel{position:fixed;right:0;top:48px;bottom:0;width:420px;background:var(--w);border-left:3px solid var(--ink);overflow-y:auto;transform:translateX(100%);transition:transform .3s;z-index:50;padding:24px}
+.preview-panel.open{transform:translateX(0)}
+.preview-panel-head{font-family:var(--g);font-size:16px;font-weight:800;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center}
+
+/* EDIT MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:32px 16px;overflow-y:auto}
+.overlay.open{display:flex}
+.modal{background:var(--w);width:100%;max-width:740px;border-top:5px solid var(--red);max-height:calc(100vh - 64px);overflow-y:auto;flex-shrink:0}
+.modal-head{padding:18px 24px;border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--w);z-index:10}
+.modal-title{font-family:var(--g);font-size:15px;font-weight:800;text-transform:uppercase}
+.modal-body{padding:24px;display:flex;flex-direction:column;gap:16px}
+.modal-sec{border-top:1px solid var(--rule);padding-top:14px}
+.modal-sec:first-child{border-top:none;padding-top:0}
+.modal-sec-t{font-family:var(--m);font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fg.full{grid-template-columns:1fr}
+.fg.three{grid-template-columns:1fr 1fr 1fr}
+.ff{display:flex;flex-direction:column;gap:3px}
+.fl{font-family:var(--m);font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.fi,.ft{border:1px solid var(--rule);padding:7px 9px;font-family:var(--s);font-size:13px;color:var(--ink);background:var(--w);outline:none;transition:border-color .15s;width:100%;resize:vertical}
+.fi:focus,.ft:focus{border-color:var(--red)}
+.ft{min-height:64px}
+.fhint{font-family:var(--m);font-size:8.5px;color:var(--faint)}
+.modal-foot{padding:14px 24px;border-top:1px solid var(--rule);display:flex;gap:8px;justify-content:flex-end;background:var(--paper);position:sticky;bottom:0}
+
+/* BLOG */
+.post-list{display:flex;flex-direction:column;gap:2px}
+.pitem{background:var(--w);border:1px solid var(--rule);display:grid;grid-template-columns:1fr auto auto;align-items:center;padding:12px 16px;gap:12px;transition:background .12s}
+.pitem:hover{background:var(--paper)}
+.pitem-title{font-family:var(--g);font-size:14px;font-weight:700;margin-bottom:3px}
+.pitem-meta{font-family:var(--m);font-size:9px;color:var(--mid);letter-spacing:.08em;text-transform:uppercase}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--w);font-family:var(--m);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:10px 20px;z-index:500;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.show{opacity:1}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);margin-bottom:32px}
+.stat-box{background:var(--w);padding:20px 24px}
+.stat-n{font-family:var(--g);font-size:36px;font-weight:800;line-height:1;margin-bottom:4px}
+.stat-l{font-family:var(--m);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid)}
+
+/* RESPONSIVE */
+@media(max-width:700px){.fg{grid-template-columns:1fr}.ditem{grid-template-columns:1fr auto}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">Dissenyopedia</div>
+    <div class="login-sub">Panell d'administració</div>
+    <input type="password" id="pwInput" placeholder="Contrassenya..." onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" onclick="doLogin()">Entrar</button>
+    <div class="login-err" id="loginErr">Contrassenya incorrecta</div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="admin" id="adminPanel">
+  <header class="mast">
+    <div class="mast-i">
+      <div class="mast-logo">Dissenyopedia</div>
+      <span class="mast-badge">Admin</span>
+      <div class="mast-sep"></div>
+      <a href="/" target="_blank" class="mast-link">Veure web</a>
+      <span class="mast-link active" id="tab-btn-designers" onclick="showTab('designers')">Dissenyadors</span>
+      <span class="mast-link" id="tab-btn-blog" onclick="showTab('blog')">Blog</span>
+      <span class="mast-link" onclick="logout()">Sortir</span>
+    </div>
+  </header>
+
+  <!-- TAB: DESIGNERS -->
+  <div class="tab-content active" id="tab-designers">
+
+    <!-- AI GENERATE -->
+    <div class="ai-box">
+      <div class="ai-box-title">Generar fitxa amb Intel·ligència Artificial</div>
+      <input class="ai-input" id="aiName" placeholder="Nom del dissenyador... (ex: Dieter Rams)" onkeydown="if(event.key==='Enter')generateCard()">
+      <div class="ai-lang">
+        <select id="aiLang">
+          <option value="ca">Català</option>
+          <option value="es">Castellà</option>
+        </select>
+      </div>
+      <button class="btn btn-red" onclick="generateCard()">&#9889; Generar fitxa</button>
+      <div class="ai-loading" id="aiLoading">Generant fixa...</div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-box"><div class="stat-n" id="sTotal">-</div><div class="stat-l">Total dissenyadors</div></div>
+      <div class="stat-box"><div class="stat-n" id="sPublished">-</div><div class="stat-l">Publicats</div></div>
+      <div class="stat-box"><div class="stat-n" id="sDraft">-</div><div class="stat-l">Esborrany</div></div>
+      <div class="stat-box"><div class="stat-n" id="sCats">4</div><div class="stat-l">Categories</div></div>
+    </div>
+
+    <!-- DESIGNER LIST -->
+    <div class="sec-head">
+      <div class="sec-title">Dissenyadors</div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-ghost" onclick="seedDB()">Importar 20 inicials</button>
+        <button class="btn btn-ink" onclick="openNewDesigner()">+ Nou dissenyador</button>
+      </div>
+    </div>
+    <div class="designer-list" id="designerList">
+      <p style="font-family:var(--m);font-size:11px;color:var(--faint);padding:20px 0">Carregant...</p>
+    </div>
+  </div>
+
+  <!-- TAB: BLOG -->
+  <div class="tab-content" id="tab-blog">
+    <div class="sec-head">
+      <div class="sec-title">Blog / Notícies</div>
+      <button class="btn btn-red" onclick="openNewPost()">+ Nou article</button>
+    </div>
+    <div class="post-list" id="postList">
+      <p style="font-family:var(--m);font-size:11px;color:var(--faint);padding:20px 0">Carregant...</p>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT DESIGNER MODAL -->
+<div class="overlay" id="designerModal">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="modalTitle">Nou dissenyador</div>
+      <button class="btn btn-ghost btn-sm" onclick="closeModal('designerModal')">Tancar</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="m-id">
+      <div class="modal-sec">
+        <div class="modal-sec-t">Informació bàsica</div>
+        <div class="fg">
+          <div class="ff"><label class="fl">Nom *</label><input class="fi" id="m-name"></div>
+          <div class="ff"><label class="fl">Categoria *</label>
+            <select class="fi" id="m-cat">
+              <option value="llegendes">Llegendes i Pioners</option>
+              <option value="branding">Branding i Identitat</option>
+              <option value="contemporanis">Visionaris Contemporanis</option>
+              <option value="hispa">Món Hispà</option>
+            </select>
+          </div>
+          <div class="ff"><label class="fl">Eslogan CA</label><input class="fi" id="m-tagline-ca"></div>
+          <div class="ff"><label class="fl">Eslogan ES</label><input class="fi" id="m-tagline-es"></div>
+          <div class="ff"><label class="fl">Període</label><input class="fi" id="m-period" placeholder="1920–1996"></div>
+          <div class="ff"><label class="fl">Origen</label><input class="fi" id="m-origin" placeholder="Ciutat, País"></div>
+        </div>
+        <div class="fg full" style="margin-top:10px">
+          <div class="ff"><label class="fl">URL retrat</label><input class="fi" id="m-portrait" placeholder="https://..."></div>
+        </div>
+      </div>
+      <div class="modal-sec">
+        <div class="modal-sec-t">Biografia</div>
+        <div class="fg">
+          <div class="ff"><label class="fl">Bio CA</label><textarea class="ft" id="m-bio-ca" rows="3"></textarea></div>
+          <div class="ff"><label class="fl">Bio ES</label><textarea class="ft" id="m-bio-es" rows="3"></textarea></div>
+        </div>
+      </div>
+      <div class="modal-sec">
+        <div class="modal-sec-t">Estil i Tècniques</div>
+        <div class="fg">
+          <div class="ff"><label class="fl">Estil visual</label><textarea class="ft" id="m-style" rows="4" placeholder="Una per línia"></textarea></div>
+          <div class="ff"><label class="fl">Tècniques clau</label><textarea class="ft" id="m-tech" rows="4" placeholder="Una per línia"></textarea></div>
+        </div>
+      </div>
+      <div class="modal-sec">
+        <div class="modal-sec-t">Principis (fins a 3)</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="fg"><div class="ff"><label class="fl">Principi 1 - Nom</label><input class="fi" id="m-p1n"></div><div class="ff"><label class="fl">Descripció</label><input class="fi" id="m-p1d"></div></div>
+          <div class="fg"><div class="ff"><label class="fl">Principi 2 - Nom</label><input class="fi" id="m-p2n"></div><div class="ff"><label class="fl">Descripció</label><input class="fi" id="m-p2d"></div></div>
+          <div class="fg"><div class="ff"><label class="fl">Principi 3 - Nom</label><input class="fi" id="m-p3n"></div><div class="ff"><label class="fl">Descripció</label><input class="fi" id="m-p3d"></div></div>
+        </div>
+      </div>
+      <div class="modal-sec">
+        <div class="modal-sec-t">Obres mestres (fins a 3)</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="fg"><div class="ff"><label class="fl">Obra 1 - Títol</label><input class="fi" id="m-w1t"></div><div class="ff"><label class="fl">Descripció</label><input class="fi" id="m-w1d"></div></div>
+          <div class="fg"><div class="ff"><label class="fl">Obra 2 - Títol</label><input class="fi" id="m-w2t"></div><div class="ff"><label class="fl">Descripció</label><input class="fi" id="m-w2d"></div></div>
+          <div class="fg"><div class="ff"><label class="fl">Obra 3 - Títol</label><input class="fi" id="m-w3t"></div><div class="ff"><label class="fl">Descripció</label><input class="fi" id="m-w3d"></div></div>
+        </div>
+      </div>
+      <div class="modal-sec">
+        <div class="modal-sec-t">Llico i fonts</div>
+        <div class="fg">
+          <div class="ff"><label class="fl">Llecció CA</label><textarea class="ft" id="m-lesson-ca" rows="3"></textarea></div>
+          <div class="ff"><label class="fl">Llecció ES</label><textarea class="ft" id="m-lesson-es" rows="3"></textarea></div>
+        </div>
+        <div class="fg full" style="margin-top:10px">
+          <div class="ff"><label class="fl">Fonts (una per línia)</label><textarea class="ft" id="m-sources" rows="2"></textarea></div>
+        </div>
+      </div>
+      <div class="modal-sec">
+        <div class="modal-sec-t">Vídeo i enllaços</div>
+        <div class="fg full"><div class="ff"><label class="fl">ID vídeo YouTube</label><input class="fi" id="m-vid" placeholder="Ex: YqQx75OPRa0"></div></div>
+        <div style="display:flex;flex-direction:column;gap:7px;margin-top:10px">
+          <div class="fg"><div class="ff"><label class="fl">Enllaç 1 - Nom</label><input class="fi" id="m-l1n"></div><div class="ff"><label class="fl">URL</label><input class="fi" id="m-l1u" placeholder="https://..."></div></div>
+          <div class="fg"><div class="ff"><label class="fl">Enllaç 2 - Nom</label><input class="fi" id="m-l2n"></div><div class="ff"><label class="fl">URL</label><input class="fi" id="m-l2u" placeholder="https://..."></div></div>
+          <div class="fg"><div class="ff"><label class="fl">Enllaç 3 - Nom</label><input class="fi" id="m-l3n"></div><div class="ff"><label class="fl">URL</label><input class="fi" id="m-l3u" placeholder="https://..."></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('designerModal')">Cancel·lar</button>
+      <button class="btn btn-red" onclick="saveDesigner()">Desar dissenyador</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT POST MODAL -->
+<div class="overlay" id="postModal">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="postModalTitle">Nou article</div>
+      <button class="btn btn-ghost btn-sm" onclick="closeModal('postModal')">Tancar</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="p-id">
+      <div class="modal-sec">
+        <div class="modal-sec-t">Títol i extracte</div>
+        <div class="fg">
+          <div class="ff"><label class="fl">Títol CA</label><input class="fi" id="p-title-ca"></div>
+          <div class="ff"><label class="fl">Títol ES</label><input class="fi" id="p-title-es"></div>
+          <div class="ff"><label class="fl">Extracte CA</label><textarea class="ft" id="p-excerpt-ca" rows="2"></textarea></div>
+          <div class="ff"><label class="fl">Extracte ES</label><textarea class="ft" id="p-excerpt-es" rows="2"></textarea></div>
+        </div>
+      </div>
+      <div class="modal-sec">
+        <div class="modal-sec-t">Contingut</div>
+        <div class="fg full">
+          <div class="ff"><label class="fl">Contingut CA (HTML acceptat)</label><textarea class="ft" id="p-content-ca" rows="8"></textarea></div>
+          <div class="ff" style="margin-top:10px"><label class="fl">Contingut ES (HTML acceptat)</label><textarea class="ft" id="p-content-es" rows="8"></textarea></div>
+        </div>
+      </div>
+      <div class="modal-sec">
+        <div class="modal-sec-t">Meta</div>
+        <div class="fg">
+          <div class="ff"><label class="fl">Imatge de portada (URL)</label><input class="fi" id="p-cover"></div>
+          <div class="ff"><label class="fl">Etiquetes (separades per comes)</label><input class="fi" id="p-tags" placeholder="branding, tipografia, identitat"></div>
+        </div>
+        <div class="ff" style="margin-top:10px"><label class="fl" style="display:flex;align-items:center;gap:8px"><input type="checkbox" id="p-published"> Publicar immediatament</label></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('postModal')">Cancel·lar</button>
+      <button class="btn btn-red" onclick="savePost()">Desar article</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const SUPABASE_URL = 'https://kqkuarealgjmvgajaaco.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_f8JhWUqEwBsPUk6Ah-XJrQ_Gm_WHAI3';
+let ADMIN_PW = '';
+let allDesigners = [];
+let allPosts = [];
+
+// ── AUTH ────────────────────────────────────────────────────────────────────
+function doLogin() {
+  const pw = document.getElementById('pwInput').value;
+  if (!pw) return;
+  ADMIN_PW = pw;
+  // Quick test with a real admin action
+  adminCall('get-all-designers', {}).then(res => {
+    if (res.ok) {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminPanel').style.display = 'block';
+      allDesigners = res.designers || [];
+      renderDesigners();
+      renderStats();
+      loadPosts();
+    } else {
+      showErr();
+    }
+  }).catch(() => showErr());
+}
+function showErr() {
+  const e = document.getElementById('loginErr');
+  e.style.display = 'block';
+  setTimeout(() => e.style.display = 'none', 3000);
+}
+function logout() { ADMIN_PW = ''; location.reload(); }
+
+// ── API CALLS ────────────────────────────────────────────────────────────────
+async function adminCall(action, data) {
+  const r = await fetch('/api/admin-action', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-password': ADMIN_PW },
+    body: JSON.stringify({ action, data }),
+  });
+  return r.json();
+}
+async function aiCall(name, lang) {
+  const r = await fetch('/api/generate-card', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-password': ADMIN_PW },
+    body: JSON.stringify({ name, lang }),
+  });
+  return r.json();
+}
+
+// ── TABS ─────────────────────────────────────────────────────────────────────
+function showTab(tab) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.mast-link[id^="tab-btn-"]').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.getElementById('tab-btn-' + tab).classList.add('active');
+}
+
+// ── SEED ─────────────────────────────────────────────────────────────────────
+async function seedDB() {
+  if (!confirm('Importar els 20 dissenyadors inicials a la base de dades? (Es faran upsert, no sobreescriura res si ja existeixen)')) return;
+  toast('Important...');
+  const res = await adminCall('seed', {});
+  if (res.ok) {
+    toast(`${res.count} dissenyadors importats correctament`);
+    const r2 = await adminCall('get-all-designers', {});
+    allDesigners = r2.designers || [];
+    renderDesigners();
+    renderStats();
+  } else {
+    toast('Error: ' + (res.error || 'desconegut'));
+  }
+}
+
+// ── GENERATE CARD WITH AI ─────────────────────────────────────────────────────
+async function generateCard() {
+  const name = document.getElementById('aiName').value.trim();
+  const lang = document.getElementById('aiLang').value;
+  if (!name) { toast("Escriu el nom d'un dissenyador"); return; }
+  document.getElementById('aiLoading').style.display = 'block';
+  document.querySelector('.ai-box .btn-red').disabled = true;
+  try {
+    const res = await aiCall(name, lang);
+    if (!res.ok) throw new Error(res.error);
+    const c = res.card;
+    // Pre-fill edit modal
+    openNewDesigner();
+    document.getElementById('m-name').value = c.name || '';
+    document.getElementById('m-cat').value = c.category || 'llegendes';
+    document.getElementById('m-tagline-ca').value = lang === 'ca' ? (c.tagline || '') : '';
+    document.getElementById('m-tagline-es').value = lang === 'es' ? (c.tagline || '') : '';
+    document.getElementById('m-period').value = c.period || '';
+    document.getElementById('m-origin').value = c.origin || '';
+    document.getElementById('m-portrait').value = c.portrait_url || '';
+    document.getElementById('m-bio-ca').value = lang === 'ca' ? (c.bio || '') : '';
+    document.getElementById('m-bio-es').value = lang === 'es' ? (c.bio || '') : '';
+    document.getElementById('m-style').value = (c.style || []).join('\n');
+    document.getElementById('m-tech').value = (c.techniques || []).join('\n');
+    if (c.principles && c.principles[0]) { document.getElementById('m-p1n').value = c.principles[0].name || ''; document.getElementById('m-p1d').value = c.principles[0].desc || ''; }
+    if (c.principles && c.principles[1]) { document.getElementById('m-p2n').value = c.principles[1].name || ''; document.getElementById('m-p2d').value = c.principles[1].desc || ''; }
+    if (c.principles && c.principles[2]) { document.getElementById('m-p3n').value = c.principles[2].name || ''; document.getElementById('m-p3d').value = c.principles[2].desc || ''; }
+    if (c.works && c.works[0]) { document.getElementById('m-w1t').value = c.works[0].title || ''; document.getElementById('m-w1d').value = c.works[0].desc || ''; }
+    if (c.works && c.works[1]) { document.getElementById('m-w2t').value = c.works[1].title || ''; document.getElementById('m-w2d').value = c.works[1].desc || ''; }
+    if (c.works && c.works[2]) { document.getElementById('m-w3t').value = c.works[2].title || ''; document.getElementById('m-w3d').value = c.works[2].desc || ''; }
+    document.getElementById('m-lesson-ca').value = lang === 'ca' ? (c.lesson || '') : '';
+    document.getElementById('m-lesson-es').value = lang === 'es' ? (c.lesson || '') : '';
+    document.getElementById('m-sources').value = (c.sources || []).join('\n');
+    document.getElementById('m-vid').value = c.video_id || '';
+    if (c.links && c.links[0]) { document.getElementById('m-l1n').value = c.links[0].label || ''; document.getElementById('m-l1u').value = c.links[0].url || ''; }
+    if (c.links && c.links[1]) { document.getElementById('m-l2n').value = c.links[1].label || ''; document.getElementById('m-l2u').value = c.links[1].url || ''; }
+    if (c.links && c.links[2]) { document.getElementById('m-l3n').value = c.links[2].label || ''; document.getElementById('m-l2u').value = c.links[2].url || ''; }
+    document.getElementById('aiName').value = '';
+    toast('Fitxa generada! Revisa i desa.');
+  } catch (err) {
+    toast('Error generant fitxa: ' + err.message);
+  } finally {
+    document.getElementById('aiLoading').style.display = 'none';
+    document.querySelector('.ai-box .btn-red').disabled = false;
+  }
+}
+
+// ── RENDER DESIGNERS ──────────────────────────────────────────────────────────
+function renderDesigners() {
+  const list = document.getElementById('designerList');
+  if (!allDesigners.length) {
+    list.innerHTML = '<p style="font-family:var(--m);font-size:11px;color:var(--faint);padding:20px 0">Cap dissenyador. Fes clic a "Importar 20 inicials" per comenar.</p>';
+    return;
+  }
+  const cats = ['llegendes','branding','contemporanis','hispa'];
+  const catNames = {llegendes:'Llegendes',branding:'Branding',contemporanis:'Contemporanis',hispa:'Hispa'};
+  list.innerHTML = '';
+  cats.forEach(cat => {
+    const items = allDesigners.filter(d => d.category_slug === cat);
+    if (!items.length) return;
+    const header = document.createElement('div');
+    header.style.cssText = 'font-family:var(--m);font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);padding:16px 0 6px;border-bottom:1px solid var(--rule);margin-top:12px';
+    header.textContent = catNames[cat];
+    list.appendChild(header);
+    items.forEach(d => {
+      const el = document.createElement('div');
+      el.className = 'ditem';
+      el.innerHTML = `
+        <div class="ditem-order">${d.sort_order}</div>
+        <div class="ditem-info">
+          <div class="ditem-name">${d.name}</div>
+          <div class="ditem-meta">${d.period || ''} · ${d.origin || ''}</div>
+        </div>
+        <div class="ditem-cat">${d.category_slug}</div>
+        <div class="ditem-pub"><span class="dot ${d.is_published ? 'dot-green' : 'dot-grey'}" title="${d.is_published ? 'Publicat' : 'Esborrany'}"></span></div>
+        <div class="ditem-actions">
+          <button class="btn btn-ghost btn-sm btn-icon" data-act="edit" title="Editar">&#9998;</button>
+          <button class="btn btn-ghost btn-sm btn-icon" data-act="toggle">&#9679;</button>
+          <button class="btn btn-ghost btn-sm btn-icon" data-act="del" title="Eliminar" style="color:var(--red)">&#10005;</button>
+        </div>`;
+      el.querySelector('[data-act="edit"]').addEventListener('click', () => editDesigner(d.id));
+      el.querySelector('[data-act="toggle"]').addEventListener('click', () => togglePublished(d.id));
+      el.querySelector('[data-act="del"]').addEventListener('click', () => deleteDesigner(d.id, d.name));
+      list.appendChild(el);
+    });
+  });
+  // Custom (unknown category)
+  const custom = allDesigners.filter(d => !cats.includes(d.category_slug));
+  if (custom.length) {
+    const header = document.createElement('div');
+    header.style.cssText = 'font-family:var(--m);font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);padding:16px 0 6px;border-bottom:1px solid var(--rule);margin-top:12px';
+    header.textContent = 'Altres';
+    list.appendChild(header);
+    custom.forEach(d => {
+      const el = document.createElement('div');
+      el.className = 'ditem';
+      el.innerHTML = `<div class="ditem-order">${d.sort_order}</div><div class="ditem-info"><div class="ditem-name">${d.name}</div><div class="ditem-meta">${d.category_slug}</div></div><div class="ditem-pub"><span class="dot ${d.is_published?'dot-green':'dot-grey'}"></span></div><div class="ditem-actions"><button class="btn btn-ghost btn-sm btn-icon" data-act="edit">&#9998;</button><button class="btn btn-ghost btn-sm btn-icon" data-act="del" style="color:var(--red)">&#10005;</button></div>`;
+      el.querySelector('[data-act="edit"]').addEventListener('click', () => editDesigner(d.id));
+      el.querySelector('[data-act="del"]').addEventListener('click', () => deleteDesigner(d.id, d.name));
+      list.appendChild(el);
+    });
+  }
+}
+
+function renderStats() {
+  document.getElementById('sTotal').textContent = allDesigners.length;
+  document.getElementById('sPublished').textContent = allDesigners.filter(d => d.is_published).length;
+  document.getElementById('sDraft').textContent = allDesigners.filter(d => !d.is_published).length;
+}
+
+// ── DESIGNER CRUD ─────────────────────────────────────────────────────────────
+function openNewDesigner() {
+  document.getElementById('modalTitle').textContent = 'Nou dissenyador';
+  clearDesignerForm();
+  document.getElementById('designerModal').classList.add('open');
+}
+
+function editDesigner(id) {
+  const d = allDesigners.find(x => x.id === id);
+  if (!d) return;
+  document.getElementById('modalTitle').textContent = 'Editar: ' + d.name;
+  document.getElementById('m-id').value = d.id;
+  document.getElementById('m-name').value = d.name || '';
+  document.getElementById('m-cat').value = d.category_slug || 'llegendes';
+  document.getElementById('m-tagline-ca').value = d.tagline_ca || '';
+  document.getElementById('m-tagline-es').value = d.tagline_es || '';
+  document.getElementById('m-period').value = d.period || '';
+  document.getElementById('m-origin').value = d.origin || '';
+  document.getElementById('m-portrait').value = d.portrait_url || '';
+  document.getElementById('m-bio-ca').value = d.bio_ca || '';
+  document.getElementById('m-bio-es').value = d.bio_es || '';
+  document.getElementById('m-style').value = (d.style || []).join('\n');
+  document.getElementById('m-tech').value = (d.techniques || []).join('\n');
+  const pr = d.principles || [];
+  document.getElementById('m-p1n').value = pr[0]?.name || ''; document.getElementById('m-p1d').value = pr[0]?.desc || '';
+  document.getElementById('m-p2n').value = pr[1]?.name || ''; document.getElementById('m-p2d').value = pr[1]?.desc || '';
+  document.getElementById('m-p3n').value = pr[2]?.name || ''; document.getElementById('m-p3d').value = pr[2]?.desc || '';
+  const wk = d.works || [];
+  document.getElementById('m-w1t').value = wk[0]?.title || ''; document.getElementById('m-w1d').value = wk[0]?.desc || '';
+  document.getElementById('m-w2t').value = wk[1]?.title || ''; document.getElementById('m-w2d').value = wk[1]?.desc || '';
+  document.getElementById('m-w3t').value = wk[2]?.title || ''; document.getElementById('m-w3d').value = wk[2]?.desc || '';
+  document.getElementById('m-lesson-ca').value = d.lesson_ca || '';
+  document.getElementById('m-lesson-es').value = d.lesson_es || '';
+  document.getElementById('m-sources').value = (d.sources || []).join('\n');
+  document.getElementById('m-vid').value = d.video_id || '';
+  const lks = d.links || [];
+  document.getElementById('m-l1n').value = lks[0]?.label || ''; document.getElementById('m-l1u').value = lks[0]?.url || '';
+  document.getElementById('m-l2n').value = lks[1]?.label || ''; document.getElementById('m-l2u').value = lks[1]?.url || '';
+  document.getElementById('m-l3n').value = lks[2]?.label || ''; document.getElementById('m-l3u').value = lks[2]?.url || '';
+  document.getElementById('designerModal').classList.add('open');
+}
+
+function clearDesignerForm() {
+  ['m-id','m-name','m-tagline-ca','m-tagline-es','m-period','m-origin','m-portrait','m-bio-ca','m-bio-es','m-style','m-tech','m-p1n','m-p1d','m-p2n','m-p2d','m-p3n','m-p3d','m-w1t','m-w1d','m-w2t','m-w2d','m-w3t','m-w3d','m-lesson-ca','m-lesson-es','m-sources','m-vid','m-l1n','m-l1u','m-l2n','m-l2u','m-l3n','m-l3u'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+}
+
+async function saveDesigner() {
+  const name = document.getElementById('m-name').value.trim();
+  if (!name) { toast('El nom es obligatori'); return; }
+  const lines = t => (t||'').split('\n').map(l=>l.trim()).filter(Boolean);
+  const id = document.getElementById('m-id').value;
+  const slug = name.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  const pr = [[document.getElementById('m-p1n').value,document.getElementById('m-p1d').value],[document.getElementById('m-p2n').value,document.getElementById('m-p2d').value],[document.getElementById('m-p3n').value,document.getElementById('m-p3d').value]].filter(([n])=>n.trim()).map(([n,d])=>({name:n,desc:d}));
+  const works = [[document.getElementById('m-w1t').value,document.getElementById('m-w1d').value],[document.getElementById('m-w2t').value,document.getElementById('m-w2d').value],[document.getElementById('m-w3t').value,document.getElementById('m-w3d').value]].filter(([t])=>t.trim()).map(([t,d])=>({title:t,desc:d}));
+  const links = [[document.getElementById('m-l1n').value,document.getElementById('m-l1u').value],[document.getElementById('m-l2n').value,document.getElementById('m-l2u').value],[document.getElementById('m-l3n').value,document.getElementById('m-l3u').value]].filter(([l,u])=>l.trim()&&u.trim()).map(([l,u])=>({label:l,url:u,icon:'🔗'}));
+  const data = { id:id||undefined, slug, name, category_slug:document.getElementById('m-cat').value, tagline_ca:document.getElementById('m-tagline-ca').value, tagline_es:document.getElementById('m-tagline-es').value, period:document.getElementById('m-period').value, origin:document.getElementById('m-origin').value, portrait_url:document.getElementById('m-portrait').value||null, bio_ca:document.getElementById('m-bio-ca').value, bio_es:document.getElementById('m-bio-es').value, style:lines(document.getElementById('m-style').value), techniques:lines(document.getElementById('m-tech').value), principles:pr, works, lesson_ca:document.getElementById('m-lesson-ca').value, lesson_es:document.getElementById('m-lesson-es').value, sources:lines(document.getElementById('m-sources').value), video_id:document.getElementById('m-vid').value||null, links, is_published:true };
+  const res = await adminCall('save-designer', data);
+  if (res.ok) {
+    toast('Dissenyador desat');
+    closeModal('designerModal');
+    const r2 = await adminCall('get-all-designers', {});
+    allDesigners = r2.designers || [];
+    renderDesigners();
+    renderStats();
+  } else { toast('Error: ' + (res.error||'desconegut')); }
+}
+
+async function deleteDesigner(id, name) {
+  if (!confirm('Eliminar ' + name + '?')) return;
+  const res = await adminCall('delete-designer', { id });
+  if (res.ok) { toast('Eliminat'); allDesigners = allDesigners.filter(d => d.id !== id); renderDesigners(); renderStats(); }
+  else toast('Error: ' + (res.error||'desconegut'));
+}
+
+async function togglePublished(id) {
+  const res = await adminCall('toggle-published', { id });
+  if (res.ok) { const d = allDesigners.find(x => x.id === id); if (d) d.is_published = res.is_published; renderDesigners(); renderStats(); toast(res.is_published ? 'Publicat' : 'Despublicat'); }
+}
+
+// ── BLOG ──────────────────────────────────────────────────────────────────────
+async function loadPosts() {
+  const res = await adminCall('get-all-posts', {});
+  allPosts = res.posts || [];
+  renderPosts();
+}
+
+function renderPosts() {
+  const list = document.getElementById('postList');
+  if (!allPosts.length) {
+    list.innerHTML = '<p style="font-family:var(--m);font-size:11px;color:var(--faint);padding:20px 0">Cap article. Crea el primer article de blog.</p>';
+    return;
+  }
+  list.innerHTML = '';
+  allPosts.forEach(p => {
+    const el = document.createElement('div');
+    el.className = 'pitem';
+    el.innerHTML = `
+      <div><div class="pitem-title">${p.title_ca || p.title_es || '(Sense titol)'}</div><div class="pitem-meta">${p.published_at ? new Date(p.published_at).toLocaleDateString('ca') : 'Esborrany'} ${p.tags && p.tags.length ? '· ' + p.tags.join(', ') : ''}</div></div>
+      <span class="dot ${p.is_published ? 'dot-green' : 'dot-grey'}"></span>
+      <div style="display:flex;gap:4px">
+        <button class="btn btn-ghost btn-sm btn-icon" title="Editar">&#9998;</button>
+        <button class="btn btn-ghost btn-sm btn-icon" style="color:var(--red)">&#10005;</button>
+      </div>`;
+    const btns = el.querySelectorAll('button');
+    btns[0].addEventListener('click', () => editPost(p.id));
+    btns[1].addEventListener('click', () => deletePost(p.id));
+    list.appendChild(el);
+  });
+}
+
+function openNewPost() { document.getElementById('postModalTitle').textContent = 'Nou article'; ['p-id','p-title-ca','p-title-es','p-excerpt-ca','p-excerpt-es','p-content-ca','p-content-es','p-cover','p-tags'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''}); document.getElementById('p-published').checked = false; document.getElementById('postModal').classList.add('open'); }
+
+function editPost(id) {
+  const p = allPosts.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('postModalTitle').textContent = 'Editar article';
+  document.getElementById('p-id').value = p.id;
+  document.getElementById('p-title-ca').value = p.title_ca || '';
+  document.getElementById('p-title-es').value = p.title_es || '';
+  document.getElementById('p-excerpt-ca').value = p.excerpt_ca || '';
+  document.getElementById('p-excerpt-es').value = p.excerpt_es || '';
+  document.getElementById('p-content-ca').value = p.content_ca || '';
+  document.getElementById('p-content-es').value = p.content_es || '';
+  document.getElementById('p-cover').value = p.cover_image || '';
+  document.getElementById('p-tags').value = (p.tags || []).join(', ');
+  document.getElementById('p-published').checked = p.is_published;
+  document.getElementById('postModal').classList.add('open');
+}
+
+async function savePost() {
+  const id = document.getElementById('p-id').value;
+  const title_ca = document.getElementById('p-title-ca').value.trim();
+  const title_es = document.getElementById('p-title-es').value.trim();
+  if (!title_ca && !title_es) { toast('Falta el titol'); return; }
+  const is_published = document.getElementById('p-published').checked;
+  const slug = (title_ca || title_es).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') + '-' + Date.now();
+  const tags = document.getElementById('p-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
+  const data = { id:id||undefined, slug, title_ca, title_es, excerpt_ca:document.getElementById('p-excerpt-ca').value, excerpt_es:document.getElementById('p-excerpt-es').value, content_ca:document.getElementById('p-content-ca').value, content_es:document.getElementById('p-content-es').value, cover_image:document.getElementById('p-cover').value||null, tags, is_published, published_at: is_published ? new Date().toISOString() : null };
+  const res = await adminCall('save-post', data);
+  if (res.ok) { toast('Article desat'); closeModal('postModal'); loadPosts(); }
+  else toast('Error: ' + (res.error||'desconegut'));
+}
+
+async function deletePost(id) {
+  if (!confirm('Eliminar aquest article?')) return;
+  const res = await adminCall('delete-post', { id });
+  if (res.ok) { toast('Eliminat'); loadPosts(); }
+}
+
+// ── UTILS ─────────────────────────────────────────────────────────────────────
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function toast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2800); }
+
+// overlays click-outside
+document.querySelectorAll('.overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); }));
+document.getElementById('pwInput').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+</script>
+</body>
+</html>
