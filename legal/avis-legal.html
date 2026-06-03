@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avís Legal / Aviso Legal — Dissenyopedia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Lora:ital,wght@0,400;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0a;--mid:#555;--rule:#ddd;--paper:#f8f7f5;--red:#C41E3A;--g:"Bricolage Grotesque",system-ui,sans-serif;--s:"Lora",Georgia,serif;--m:"JetBrains Mono",monospace}
+*{box-sizing:border-box;margin:0;padding:0}body{background:var(--paper);color:var(--ink);font-family:var(--s);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.mast{background:#fff;border-bottom:3px solid var(--ink);padding:0;position:sticky;top:0;z-index:10}
+.mast-i{max-width:900px;margin:0 auto;padding:0 24px;display:flex;align-items:center;height:48px;gap:16px}
+.mast-name{font-family:var(--g);font-size:14px;font-weight:800;letter-spacing:-.02em;text-transform:uppercase;text-decoration:none;color:var(--ink)}
+.mast-back{font-family:var(--m);font-size:10px;color:var(--red);text-decoration:none;letter-spacing:.1em;text-transform:uppercase}
+.mast-sep{flex:1}
+.lang-toggle{display:flex;align-items:center;gap:0}
+.lang-btn{background:none;border:1px solid var(--rule);padding:4px 9px;font-family:var(--m);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);cursor:pointer;transition:all .12s}
+.lang-btn:first-child{border-right:none}
+.lang-btn.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.wrap{max-width:900px;margin:0 auto;padding:48px 24px 80px}
+h1{font-family:var(--g);font-size:clamp(28px,5vw,48px);font-weight:800;letter-spacing:-.03em;margin-bottom:8px}
+.meta{font-family:var(--m);font-size:10px;color:var(--red);letter-spacing:.15em;text-transform:uppercase;margin-bottom:40px;padding-bottom:16px;border-bottom:3px solid var(--ink)}
+h2{font-family:var(--g);font-size:18px;font-weight:700;margin:36px 0 10px;padding-top:36px;border-top:1px solid var(--rule)}
+h2:first-of-type{border-top:none;padding-top:0}
+p{margin-bottom:14px}a{color:var(--red)}
+ul{padding-left:20px;margin-bottom:14px}li{margin-bottom:6px}
+.footer-legal{border-top:3px solid var(--ink);padding:24px;text-align:center;font-family:var(--m);font-size:10px;color:var(--mid);letter-spacing:.1em;text-transform:uppercase;margin-top:60px}
+.lang-section{display:none}.lang-section.active{display:block}
+</style>
+</head>
+<body>
+<header class="mast">
+  <div class="mast-i">
+    <a href="/" class="mast-name">Dissenyopedia</a>
+    <a href="/" class="mast-back">← Tornar</a>
+    <div class="mast-sep"></div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btnCA" onclick="setL('ca')">CA</button>
+      <button class="lang-btn" id="btnES" onclick="setL('es')">ES</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- CATALÀ -->
+<div class="lang-section active" data-lang="ca">
+  <h1>Avís Legal</h1>
+  <p class="meta">Darrera actualització: juny 2026</p>
+  <h2>1. Titular del lloc web</h2>
+  <p>En compliment de la Llei 34/2002 de Serveis de la Societat de la Informació (LSSI-CE):</p>
+  <ul>
+    <li><strong>Titular:</strong> Tolo Oliver</li>
+    <li><strong>DNI:</strong> 78210073E</li>
+    <li><strong>Adreça:</strong> Carrer de Can Valella 17, 07300 Inca, Mallorca</li>
+    <li><strong>Correu electrònic:</strong> <a href="mailto:boocman@gmail.com">boocman@gmail.com</a></li>
+    <li><strong>Web:</strong> <a href="https://dissenyopedia.netlify.app">dissenyopedia.netlify.app</a></li>
+  </ul>
+  <h2>2. Objecte i àmbit d'aplicació</h2>
+  <p>Dissenyopedia és un arxiu de referència personal sobre disseny gràfic, de caràcter divulgatiu i cultural, sense ànim de lucre.</p>
+  <h2>3. Propietat intel·lectual</h2>
+  <p>Els textos originals, l'estructura i el codi font estan protegits sota la llicència <strong>CC BY-NC 4.0</strong>. Les fotografies de dissenyadors s'utilitzen amb fins informatius. Si ets titular de drets, contacta a <a href="mailto:boocman@gmail.com">boocman@gmail.com</a>.</p>
+  <h2>4. Responsabilitat</h2>
+  <p>El titular no es responsabilitza dels danys derivats de l'ús de la informació publicada ni dels continguts d'enllaços externs.</p>
+  <h2>5. Llei aplicable i jurisdicció</h2>
+  <p>Les condicions es regeixen per la legislació espanyola. Les parts se sotmeten als jutjats de Palma de Mallorca.</p>
+  <p><strong>© 2026 Tolo Oliver — Tots els drets reservats</strong></p>
+</div>
+
+<!-- CASTELLÀ -->
+<div class="lang-section" data-lang="es">
+  <h1>Aviso Legal</h1>
+  <p class="meta">Última actualización: junio 2026</p>
+  <h2>1. Titular del sitio web</h2>
+  <p>En cumplimiento de la Ley 34/2002 de Servicios de la Sociedad de la Información (LSSI-CE):</p>
+  <ul>
+    <li><strong>Titular:</strong> Tolo Oliver</li>
+    <li><strong>DNI:</strong> 78210073E</li>
+    <li><strong>Dirección:</strong> Carrer de Can Valella 17, 07300 Inca, Mallorca</li>
+    <li><strong>Correo electrónico:</strong> <a href="mailto:boocman@gmail.com">boocman@gmail.com</a></li>
+    <li><strong>Web:</strong> <a href="https://dissenyopedia.netlify.app">dissenyopedia.netlify.app</a></li>
+  </ul>
+  <h2>2. Objeto y ámbito de aplicación</h2>
+  <p>Dissenyopedia es un archivo de referencia personal sobre diseño gráfico, de carácter divulgativo y cultural, sin ánimo de lucro.</p>
+  <h2>3. Propiedad intelectual</h2>
+  <p>Los textos originales, la estructura y el código fuente están protegidos bajo la licencia <strong>CC BY-NC 4.0</strong>. Las fotografías de diseñadores se utilizan con fines informativos. Si eres titular de derechos, contacta en <a href="mailto:boocman@gmail.com">boocman@gmail.com</a>.</p>
+  <h2>4. Responsabilidad</h2>
+  <p>El titular no se responsabiliza de los daños derivados del uso de la información publicada ni de los contenidos de enlaces externos.</p>
+  <h2>5. Ley aplicable y jurisdicción</h2>
+  <p>Las condiciones se rigen por la legislación española. Las partes se someten a los juzgados de Palma de Mallorca.</p>
+  <p><strong>© 2026 Tolo Oliver — Todos los derechos reservados</strong></p>
+</div>
+
+</div>
+<div class="footer-legal">© 2026 Tolo Oliver · Dissenyopedia · <a href="/legal/privacitat.html">Privacitat / Privacidad</a></div>
+<script>
+let L = localStorage.getItem('dissenyopedia_lang') || 'ca';
+function setL(l) {
+  L = l; localStorage.setItem('dissenyopedia_lang', l);
+  document.querySelectorAll('.lang-section').forEach(s => s.classList.toggle('active', s.dataset.lang === l));
+  document.getElementById('btnCA').classList.toggle('active', l === 'ca');
+  document.getElementById('btnES').classList.toggle('active', l === 'es');
+}
+window.onload = () => setL(L);
+</script>
+</body>
+</html>

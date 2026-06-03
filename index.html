@@ -308,11 +308,11 @@ a{color:inherit;text-decoration:none}button{cursor:pointer;font-family:inherit}
       <p><strong>Dissenyopedia</strong></p>
       <p id="footerDesc">Arxiu de Disseny Grafic de Referencia</p>
       <p id="footerLicense">Edicio 2024 · CC BY-NC 4.0</p>
-      <p style="margin-top:8px">&copy; 2024 Tolo Oliver</p>
+      <p style="margin-top:8px">&copy; 2026 Tolo Oliver</p>
       <p style="margin-top:4px">
-        <a href="/legal/avis-legal.html" style="color:var(--red);font-size:9px;letter-spacing:.08em;text-transform:uppercase">Avis Legal</a>
+        <a href="/legal/avis-legal.html" id="legalLink" style="color:var(--red);font-size:9px;letter-spacing:.08em;text-transform:uppercase">Avís Legal</a>
         &nbsp;·&nbsp;
-        <a href="/legal/privacitat.html" style="color:var(--red);font-size:9px;letter-spacing:.08em;text-transform:uppercase">Privacitat</a>
+        <a href="/legal/privacitat.html" id="privLink" style="color:var(--red);font-size:9px;letter-spacing:.08em;text-transform:uppercase">Privacitat</a>
       </p>
     </div>
   </div>
@@ -344,7 +344,7 @@ const T = {
     playVideo: 'Reproduir video', links: 'Enllacos', fonts: 'Fonts',
     fq: '"El disseny no es solament com es veu i com es nota. El disseny es com funciona."',
     fc: 'Steve Jobs, sobre Paul Rand',
-    fd: 'Arxiu de Disseny Grafic de Referencia', fl: 'Edicio 2024 · CC BY-NC 4.0',
+    fd: 'Arxiu de Disseny Grafic de Referencia', fl: 'Edicio 2026 · CC BY-NC 4.0',
     legal: 'Avis Legal', priv: 'Privacitat',
     loading: 'Carregant dissenyadors',
   },
@@ -361,7 +361,7 @@ const T = {
     playVideo: 'Reproducir video', links: 'Enlaces', fonts: 'Fuentes',
     fq: '"El diseno no es solo como se ve y como se siente. El diseno es como funciona."',
     fc: 'Steve Jobs, sobre Paul Rand',
-    fd: 'Archivo de Diseno Grafico de Referencia', fl: 'Edicion 2024 · CC BY-NC 4.0',
+    fd: 'Archivo de Diseno Grafico de Referencia', fl: 'Edicion 2026 · CC BY-NC 4.0',
     legal: 'Aviso Legal', priv: 'Privacidad',
     loading: 'Cargando diseñadores',
   }
@@ -399,6 +399,15 @@ function updateStaticStrings() {
   document.getElementById('footerCite').textContent = t.fc;
   document.getElementById('footerDesc').textContent = t.fd;
   document.getElementById('footerLicense').textContent = t.fl;
+  // Stats labels
+  document.getElementById('statNL').innerHTML = LANG === 'ca' ? 'Dissenyadors<br>referenciats' : 'Dise&ntilde;adores<br>referenciados';
+  document.getElementById('statP').innerHTML = LANG === 'ca' ? 'Processos<br>creatius' : 'Procesos<br>creativos';
+  document.getElementById('statS').innerHTML = LANG === 'ca' ? 'Fonts i<br>bibliografia' : 'Fuentes y<br>bibliograf&iacute;a';
+  // Legal links
+  const legalLink = document.getElementById('legalLink');
+  const privLink = document.getElementById('privLink');
+  if (legalLink) legalLink.textContent = LANG === 'ca' ? 'Avís Legal' : 'Aviso Legal';
+  if (privLink) privLink.textContent = LANG === 'ca' ? 'Privacitat' : 'Privacidad';
   document.querySelectorAll('[data-t]').forEach(el => {
     const key = el.dataset.t;
     if (t[key]) el.textContent = t[key];
@@ -504,7 +513,7 @@ function renderAll(filter) {
     {slug:'llegendes', name_ca:'Llegendes i Pioners', name_es:'Leyendas y Pioneros', subtitle_ca:'Els mestres que van crear el llenguatge visual del segle XX', subtitle_es:'Los maestros que crearon el lenguaje visual del siglo XX'},
     {slug:'branding', name_ca:'Mestres del Branding i la Identitat', name_es:'Maestros del Branding e Identidad', subtitle_ca:"Els arquitectes de les identitats corporatives mes iconiques", subtitle_es:"Los arquitectos de las identidades corporativas mas iconicas"},
     {slug:'contemporanis', name_ca:'Visionaris Contemporanis', name_es:'Visionarios Contemporaneos', subtitle_ca:"Els dissenyadors que estan definint el present", subtitle_es:"Los diseñadores que estan definiendo el presente"},
-    {slug:'hispa', name_ca:'Destacats del Mon Hispa', name_es:'Destacados del Mundo Hispano', subtitle_ca:"Referents del disseny a Espanya", subtitle_es:"Referentes del diseno en Espana"}
+    {slug:'hispa', name_ca:'Cosecha Nacional', name_es:'Cosecha Nacional', subtitle_ca:'Els millors dissenyadors del mon hispa', subtitle_es:'Los mejores diseñadores del mundo hispano'}
   ];
 
   const lang = getLang();
@@ -689,7 +698,7 @@ function buildNav() {
   const lang = getLang();
   const catNames = ALL_CATS.length
     ? ALL_CATS.map(c => c['name_'+lang] || c.name_ca)
-    : [lang==='es'?'Leyendas':'Llegendes', lang==='es'?'Branding':'Branding', lang==='es'?'Contemporaneos':'Contemporanis', lang==='es'?'Hispanos':'Hispa'];
+    : [lang==='es'?'Leyendas':'Llegendes', lang==='es'?'Branding':'Branding', lang==='es'?'Contemporaneos':'Contemporanis', lang==='es'?'Cosecha':'Cosecha'];
 
   catNames.forEach((name, i) => {
     const a = document.createElement('a');

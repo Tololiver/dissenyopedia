@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacitat / Privacidad — Dissenyopedia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Lora:ital,wght@0,400;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0a;--mid:#555;--rule:#ddd;--paper:#f8f7f5;--red:#C41E3A;--g:"Bricolage Grotesque",system-ui,sans-serif;--s:"Lora",Georgia,serif;--m:"JetBrains Mono",monospace}
+*{box-sizing:border-box;margin:0;padding:0}body{background:var(--paper);color:var(--ink);font-family:var(--s);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.mast{background:#fff;border-bottom:3px solid var(--ink);padding:0;position:sticky;top:0;z-index:10}
+.mast-i{max-width:900px;margin:0 auto;padding:0 24px;display:flex;align-items:center;height:48px;gap:16px}
+.mast-name{font-family:var(--g);font-size:14px;font-weight:800;letter-spacing:-.02em;text-transform:uppercase;text-decoration:none;color:var(--ink)}
+.mast-back{font-family:var(--m);font-size:10px;color:var(--red);text-decoration:none;letter-spacing:.1em;text-transform:uppercase}
+.mast-sep{flex:1}
+.lang-toggle{display:flex;align-items:center;gap:0}
+.lang-btn{background:none;border:1px solid var(--rule);padding:4px 9px;font-family:var(--m);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);cursor:pointer;transition:all .12s}
+.lang-btn:first-child{border-right:none}
+.lang-btn.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.wrap{max-width:900px;margin:0 auto;padding:48px 24px 80px}
+h1{font-family:var(--g);font-size:clamp(28px,5vw,48px);font-weight:800;letter-spacing:-.03em;margin-bottom:8px}
+.meta{font-family:var(--m);font-size:10px;color:var(--red);letter-spacing:.15em;text-transform:uppercase;margin-bottom:40px;padding-bottom:16px;border-bottom:3px solid var(--ink)}
+h2{font-family:var(--g);font-size:18px;font-weight:700;margin:36px 0 10px;padding-top:36px;border-top:1px solid var(--rule)}
+h2:first-of-type{border-top:none;padding-top:0}
+p{margin-bottom:14px}a{color:var(--red)}
+ul{padding-left:20px;margin-bottom:14px}li{margin-bottom:6px}
+.footer-legal{border-top:3px solid var(--ink);padding:24px;text-align:center;font-family:var(--m);font-size:10px;color:var(--mid);letter-spacing:.1em;text-transform:uppercase;margin-top:60px}
+.lang-section{display:none}.lang-section.active{display:block}
+</style>
+</head>
+<body>
+<header class="mast">
+  <div class="mast-i">
+    <a href="/" class="mast-name">Dissenyopedia</a>
+    <a href="/" class="mast-back">← Tornar</a>
+    <div class="mast-sep"></div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btnCA" onclick="setL('ca')">CA</button>
+      <button class="lang-btn" id="btnES" onclick="setL('es')">ES</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- CATALÀ -->
+<div class="lang-section active" data-lang="ca">
+  <h1>Política de Privacitat</h1>
+  <p class="meta">Darrera actualització: juny 2026</p>
+  <h2>1. Responsable del tractament</h2>
+  <ul>
+    <li><strong>Responsable:</strong> Tolo Oliver · DNI 78210073E</li>
+    <li><strong>Correu:</strong> <a href="mailto:boocman@gmail.com">boocman@gmail.com</a></li>
+  </ul>
+  <h2>2. Quines dades recollim</h2>
+  <p>Dissenyopedia <strong>no recull dades personals</strong> dels usuaris anònims. L'única dada emmagatzemada localment és la preferència d'idioma, al <em>localStorage</em> del navegador, sense transmissió a cap servidor.</p>
+  <h2>3. Galetes (Cookies)</h2>
+  <p>Aquest lloc <strong>no utilitza galetes pròpies</strong>. Els vídeos incrustats de YouTube poden establir galetes de tercers. Consulta la <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">política de Google</a>.</p>
+  <h2>4. Finalitat del tractament</h2>
+  <p>Dissenyopedia és un lloc de consulta cultural. No es realitza cap tractament amb fins comercials ni publicitaris.</p>
+  <h2>5. Drets de l'usuari</h2>
+  <p>Tens dret d'accés, rectificació, supressió i oposició. Exerceix-los a <a href="mailto:boocman@gmail.com">boocman@gmail.com</a>.</p>
+  <h2>6. Seguretat</h2>
+  <p>El lloc es serveix via HTTPS a través de Netlify (SOC 2 Type 2).</p>
+  <p><strong>© 2026 Tolo Oliver</strong></p>
+</div>
+
+<!-- CASTELLÀ -->
+<div class="lang-section" data-lang="es">
+  <h1>Política de Privacidad</h1>
+  <p class="meta">Última actualización: junio 2026</p>
+  <h2>1. Responsable del tratamiento</h2>
+  <ul>
+    <li><strong>Responsable:</strong> Tolo Oliver · DNI 78210073E</li>
+    <li><strong>Correo:</strong> <a href="mailto:boocman@gmail.com">boocman@gmail.com</a></li>
+  </ul>
+  <h2>2. Qué datos recogemos</h2>
+  <p>Dissenyopedia <strong>no recoge datos personales</strong> de usuarios anónimos. El único dato almacenado localmente es la preferencia de idioma, en el <em>localStorage</em> del navegador, sin transmisión a ningún servidor.</p>
+  <h2>3. Cookies</h2>
+  <p>Este sitio <strong>no utiliza cookies propias</strong>. Los vídeos incrustados de YouTube pueden establecer cookies de terceros. Consulta la <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">política de Google</a>.</p>
+  <h2>4. Finalidad del tratamiento</h2>
+  <p>Dissenyopedia es un sitio de consulta cultural. No se realiza ningún tratamiento con fines comerciales ni publicitarios.</p>
+  <h2>5. Derechos del usuario</h2>
+  <p>Tienes derecho de acceso, rectificación, supresión y oposición. Ejércelos en <a href="mailto:boocman@gmail.com">boocman@gmail.com</a>.</p>
+  <h2>6. Seguridad</h2>
+  <p>El sitio se sirve mediante HTTPS a través de Netlify (SOC 2 Type 2).</p>
+  <p><strong>© 2026 Tolo Oliver</strong></p>
+</div>
+
+</div>
+<div class="footer-legal">© 2026 Tolo Oliver · Dissenyopedia · <a href="/legal/avis-legal.html">Avís Legal / Aviso Legal</a></div>
+<script>
+let L = localStorage.getItem('dissenyopedia_lang') || 'ca';
+function setL(l) {
+  L = l; localStorage.setItem('dissenyopedia_lang', l);
+  document.querySelectorAll('.lang-section').forEach(s => s.classList.toggle('active', s.dataset.lang === l));
+  document.getElementById('btnCA').classList.toggle('active', l === 'ca');
+  document.getElementById('btnES').classList.toggle('active', l === 'es');
+}
+window.onload = () => setL(L);
+</script>
+</body>
+</html>
