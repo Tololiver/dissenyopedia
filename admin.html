@@ -374,11 +374,11 @@ async function adminCall(action, data) {
   });
   return r.json();
 }
-async function aiCall(name, lang) {
+async function aiCall(name) {
   const r = await fetch('/api/generate-card', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-admin-password': ADMIN_PW },
-    body: JSON.stringify({ name, lang }),
+    body: JSON.stringify({ name }),
   });
   return r.json();
 }
@@ -410,25 +410,25 @@ async function seedDB() {
 // ── GENERATE CARD WITH AI ─────────────────────────────────────────────────────
 async function generateCard() {
   const name = document.getElementById('aiName').value.trim();
-  const lang = document.getElementById('aiLang').value;
+
   if (!name) { toast("Escriu el nom d'un dissenyador"); return; }
   document.getElementById('aiLoading').style.display = 'block';
   document.querySelector('.ai-box .btn-red').disabled = true;
   try {
-    const res = await aiCall(name, lang);
+    const res = await aiCall(name);
     if (!res.ok) throw new Error(res.error);
     const c = res.card;
     // Pre-fill edit modal
     openNewDesigner();
     document.getElementById('m-name').value = c.name || '';
     document.getElementById('m-cat').value = c.category || 'llegendes';
-    document.getElementById('m-tagline-ca').value = lang === 'ca' ? (c.tagline || '') : '';
-    document.getElementById('m-tagline-es').value = lang === 'es' ? (c.tagline || '') : '';
+    document.getElementById('m-tagline-ca').value = c.tagline_ca || c.tagline || '';
+    document.getElementById('m-tagline-es').value = c.tagline_es || c.tagline || '';
     document.getElementById('m-period').value = c.period || '';
     document.getElementById('m-origin').value = c.origin || '';
     document.getElementById('m-portrait').value = c.portrait_url || '';
-    document.getElementById('m-bio-ca').value = lang === 'ca' ? (c.bio || '') : '';
-    document.getElementById('m-bio-es').value = lang === 'es' ? (c.bio || '') : '';
+    document.getElementById('m-bio-ca').value = c.bio_ca || c.bio || '';
+    document.getElementById('m-bio-es').value = c.bio_es || c.bio || '';
     document.getElementById('m-style').value = (c.style || []).join('\n');
     document.getElementById('m-tech').value = (c.techniques || []).join('\n');
     if (c.principles && c.principles[0]) { document.getElementById('m-p1n').value = c.principles[0].name || ''; document.getElementById('m-p1d').value = c.principles[0].desc || ''; }
@@ -437,8 +437,8 @@ async function generateCard() {
     if (c.works && c.works[0]) { document.getElementById('m-w1t').value = c.works[0].title || ''; document.getElementById('m-w1d').value = c.works[0].desc || ''; }
     if (c.works && c.works[1]) { document.getElementById('m-w2t').value = c.works[1].title || ''; document.getElementById('m-w2d').value = c.works[1].desc || ''; }
     if (c.works && c.works[2]) { document.getElementById('m-w3t').value = c.works[2].title || ''; document.getElementById('m-w3d').value = c.works[2].desc || ''; }
-    document.getElementById('m-lesson-ca').value = lang === 'ca' ? (c.lesson || '') : '';
-    document.getElementById('m-lesson-es').value = lang === 'es' ? (c.lesson || '') : '';
+    document.getElementById('m-lesson-ca').value = c.lesson_ca || c.lesson || '';
+    document.getElementById('m-lesson-es').value = c.lesson_es || c.lesson || '';
     document.getElementById('m-sources').value = (c.sources || []).join('\n');
     document.getElementById('m-vid').value = c.video_id || '';
     if (c.links && c.links[0]) { document.getElementById('m-l1n').value = c.links[0].label || ''; document.getElementById('m-l1u').value = c.links[0].url || ''; }
