@@ -226,6 +226,111 @@ a{color:inherit;text-decoration:none}button{cursor:pointer;font-family:inherit}
 .loading-state::after{content:'...';animation:dots 1.2s steps(3,end) infinite}
 @keyframes dots{0%,100%{content:'.'} 33%{content:'..'} 66%{content:'...'}}
 
+
+/* ── HAMBURGER ─────────────────────────────────────────────── */
+.ham-btn{
+  display:none;flex-direction:column;justify-content:center;
+  gap:5px;padding:0 16px;height:100%;background:none;border:none;
+  border-left:1px solid var(--rule);cursor:pointer;flex-shrink:0;
+  width:48px;
+}
+.ham-btn span{display:block;height:2px;background:var(--ink);transition:all .25s;border-radius:1px}
+.ham-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham-btn.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.ham-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+.mob-drawer{
+  position:fixed;top:52px;left:0;right:0;
+  background:var(--w);border-bottom:3px solid var(--ink);
+  z-index:90;transform:translateY(-110%);transition:transform .28s cubic-bezier(.4,0,.2,1);
+  padding:0;
+}
+.mob-drawer.open{transform:translateY(0)}
+.mob-nav{display:flex;flex-direction:column;border-bottom:1px solid var(--rule)}
+.mob-nav a{
+  display:block;padding:16px 24px;font-family:var(--m);font-size:11px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink);
+  border-bottom:1px solid var(--rule);transition:background .12s;cursor:pointer;
+  text-decoration:none;
+}
+.mob-nav a:last-child{border-bottom:none}
+.mob-nav a:hover{background:var(--paper);color:var(--red)}
+.mob-nav a:active{background:var(--red2)}
+.mob-srch{display:flex;align-items:center;gap:10px;padding:14px 24px}
+.mob-srch input{flex:1;border:none;border-bottom:1px solid var(--rule);padding:6px 0;font-family:var(--m);font-size:12px;outline:none;background:none;color:var(--ink)}
+.mob-srch input::placeholder{color:var(--faint)}
+.mob-overlay{position:fixed;inset:0;top:52px;background:rgba(0,0,0,.3);z-index:80;display:none}
+.mob-overlay.open{display:block}
+
+/* ── MOBILE ────────────────────────────────────────────────── */
+@media(max-width:640px){
+  /* Masthead */
+  .mast-nav{display:none}
+  .ham-btn{display:flex}
+  .mast-i{height:52px}
+  .mast-name{font-size:12px;letter-spacing:-.01em}
+  .mast-tag{font-size:7.5px;letter-spacing:.1em}
+  .mast-logo>div{padding-right:10px}
+  .mast-srch{padding:0 8px;border-left:none}
+  .mast-srch input{width:80px;font-size:10px}
+  .lang-toggle{padding:0 8px;border-left:1px solid var(--rule)}
+  .lang-btn{padding:3px 6px;font-size:8px}
+
+  /* Hero */
+  .hero{padding:32px 0 28px}
+  .hero-g{grid-template-columns:1fr}
+  .hero-right{border-left:none;border-top:1px solid var(--rule);padding-top:16px;padding-left:0}
+  .hs-n{font-size:32px}
+
+  /* Part headers */
+  .part-hi{gap:12px}
+  .part-desc{margin-left:0;text-align:left;max-width:100%}
+
+  /* Cards */
+  .d-grid{grid-template-columns:1fr;border-left:none}
+  .dc-head{padding:18px 16px 16px;grid-template-columns:40px 1fr auto;gap:0 10px}
+  .dc-idx{font-size:20px}
+  .dc-name{font-size:15px}
+  .dc-tagline{font-size:12px}
+
+  /* Card spread */
+  .dc-spread{padding:0 16px 28px}
+  .sp-top{grid-template-columns:1fr}
+  .sp-port{flex-direction:row;gap:16px;align-items:center;padding:16px}
+  .sp-port img,.sp-port-ph{width:72px;height:88px}
+  .sp-cols,.sp-principles,.sp-works{grid-template-columns:1fr}
+  .sp-col,.sp-pr,.sp-work{padding:14px 16px}
+  .sp-media{grid-template-columns:1fr}
+  .sp-links{border-left:none;border-top:1px solid var(--rule)}
+  .sp-lesson{grid-template-columns:auto 1fr;padding:20px 16px}
+
+  /* Category banner */
+  .cat-bi{min-height:48px}
+  .cat-bnum{font-size:72px}
+
+  /* Process */
+  .proc-head{grid-template-columns:52px 1fr auto;padding:18px 0}
+  .proc-n{font-size:28px;padding-right:14px}
+  .proc-inner{padding-left:52px}
+  .proc-tools{grid-template-columns:1fr 1fr}
+
+  /* Bib */
+  .bib-grid{grid-template-columns:1fr}
+
+  /* Footer */
+  .footer-i{grid-template-columns:1fr;gap:24px}
+  .footer-m{border-left:none;padding-left:0;border-top:1px solid var(--rule);padding-top:20px}
+
+  /* BTT + Legal modal */
+  .btt{bottom:16px;left:16px;width:36px;height:36px;font-size:14px}
+}
+
+@media(max-width:380px){
+  .mast-srch{display:none}
+  .hero-right{grid-template-columns:1fr}
+  .hs{border-right:none;border-bottom:1px solid var(--rule)}
+}
+
 </style>
 </head>
 <body>
@@ -248,8 +353,21 @@ a{color:inherit;text-decoration:none}button{cursor:pointer;font-family:inherit}
       <button class="lang-btn active" id="btnCA" onclick="setLang('ca')">CA</button>
       <button class="lang-btn" id="btnES" onclick="setLang('es')">ES</button>
     </div>
+    <button class="ham-btn" id="hamBtn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
+
+<!-- MOBILE DRAWER -->
+<div class="mob-drawer" id="mobDrawer">
+  <nav class="mob-nav" id="mobNav"></nav>
+  <div class="mob-srch">
+    <span style="color:var(--faint);font-size:15px">&#x2315;</span>
+    <input type="text" id="searchMob" placeholder="Cercar / Buscar...">
+  </div>
+</div>
+<div class="mob-overlay" id="mobOverlay" onclick="closeMenu()"></div>
 
 <!-- HERO -->
 <section class="hero">
@@ -694,7 +812,9 @@ function renderBiblio() {
 /* ── MASTHEAD NAV ──────────────────────────────────────────── */
 function buildNav() {
   const nav = document.getElementById('mastnav');
+  const mobNav = document.getElementById('mobNav');
   nav.innerHTML = '';
+  mobNav.innerHTML = '';
   const lang = getLang();
   const catNames = ALL_CATS.length
     ? ALL_CATS.map(c => c['name_'+lang] || c.name_ca)
@@ -711,19 +831,73 @@ function buildNav() {
     nav.appendChild(a);
   });
 
-  [
+  const extraItems = [
     {l: lang==='es'?'Procesos':'Processos', fn: () => document.getElementById('pSection').scrollIntoView({behavior:'smooth'})},
     {l: lang==='es'?'Bibliog.':'Bibliog.', fn: () => document.getElementById('bSection').scrollIntoView({behavior:'smooth'})}
-  ].forEach(item => {
+  ];
+  extraItems.forEach(item => {
     const a = document.createElement('a');
     a.className = 'mnav'; a.textContent = item.l; a.href = '#';
     a.onclick = e => { e.preventDefault(); item.fn(); };
     nav.appendChild(a);
   });
+
+  // Build mobile nav (all items)
+  const allCatNames = ALL_CATS.length
+    ? ALL_CATS.map(c => ({name: c['name_'+lang]||c.name_ca, slug: c.slug}))
+    : [{name:'Llegendes',slug:'llegendes'},{name:'Branding',slug:'branding'},{name:'Contemporanis',slug:'contemporanis'},{name:'Cosecha Nacional',slug:'hispa'}];
+
+  allCatNames.forEach((cat, i) => {
+    const a = document.createElement('a');
+    a.textContent = cat.name;
+    a.href = '#';
+    a.onclick = e => {
+      e.preventDefault();
+      closeMenu();
+      setTimeout(() => {
+        const banners = document.querySelectorAll('.cat-banner');
+        if (banners[i]) banners[i].scrollIntoView({behavior:'smooth'});
+      }, 300);
+    };
+    mobNav.appendChild(a);
+  });
+
+  extraItems.forEach(item => {
+    const a = document.createElement('a');
+    a.textContent = item.l;
+    a.href = '#';
+    a.onclick = e => { e.preventDefault(); closeMenu(); setTimeout(() => item.fn(), 300); };
+    mobNav.appendChild(a);
+  });
 }
 
 /* ── SEARCH ────────────────────────────────────────────────── */
 document.getElementById('searchInput').addEventListener('input', e => renderAll(e.target.value));
+
+/* ── HAMBURGER MENU ────────────────────────────────────────── */
+function toggleMenu() {
+  const btn = document.getElementById('hamBtn');
+  const drawer = document.getElementById('mobDrawer');
+  const overlay = document.getElementById('mobOverlay');
+  const isOpen = drawer.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
+  overlay.classList.toggle('open', isOpen);
+  if (isOpen) document.getElementById('searchMob').focus();
+}
+function closeMenu() {
+  document.getElementById('hamBtn').classList.remove('open');
+  document.getElementById('mobDrawer').classList.remove('open');
+  document.getElementById('mobOverlay').classList.remove('open');
+}
+
+// Sync mobile search with desktop search
+document.getElementById('searchMob').addEventListener('input', e => {
+  document.getElementById('searchInput').value = e.target.value;
+  renderAll(e.target.value);
+});
+document.getElementById('searchInput').addEventListener('input', e => {
+  document.getElementById('searchMob').value = e.target.value;
+});
 
 /* ── BACK TO TOP ───────────────────────────────────────────── */
 const btt = document.getElementById('btt');
